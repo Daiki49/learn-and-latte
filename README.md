@@ -79,5 +79,4 @@ Figma：https://www.figma.com/board/SEE0eMpxiAMWMFiydNMq1d/Learn%26Latte-%E7%94%
 - [x] 店舗情報検索機能（未ログインでも閲覧可能）
 - [x] 店舗情報閲覧機能（未ログインでも閲覧可能）
 
-ER図：[![Image from Gyazo](https://i.gyazo.com/bfdac3cff7f02bde89de120905286538.png)](https://gyazo.com/bfdac3cff7f02bde89de120905286538)
-
+ER図：[![Image from Gyazo](https://i.gyazo.com/a8873ae89a51e3c7beb8abf753091311.png)](https://gyazo.com/a8873ae89a51e3c7beb8abf753091311)
