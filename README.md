@@ -66,3 +66,15 @@ MVPリース
 - フロントエンド：HTML / CSS / JavaScript
 - データベース：Postgresql
 - インフラ：Render
+
+### 画面遷移図
+Figma：https://www.figma.com/board/SEE0eMpxiAMWMFiydNMq1d/Learn%26Latte-%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=Tp1JJQ16Iu0p6FWA-1
+
+### READMEに記載した機能
+- [x] ユーザー登録機能
+- [x] ログイン機能
+- [x] レビュー記事投稿機能（画像投稿含む）
+- [x] レビュー記事閲覧機能（未ログインでも閲覧可能）
+- [x] いいね機能
+- [x] 店舗情報検索機能（未ログインでも閲覧可能）
+- [x] 店舗情報閲覧機能（未ログインでも閲覧可能）
