@@ -10,8 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_14_100302) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "posts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "shop_id"
+    t.string "title"
+    t.text "body"
+    t.integer "quietness_level", null: false
+    t.integer "seat_comfort_level", null: false
+    t.integer "wifi_comfort_level", null: false
+    t.integer "power_availability", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_posts_on_shop_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address", null: false
+    t.integer "phone_number"
+    t.string "opening_hours"
+    t.float "latitude"
+    t.float "longtitude"
+    t.string "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "posts", "shops"
+  add_foreign_key "posts", "users"
 end
