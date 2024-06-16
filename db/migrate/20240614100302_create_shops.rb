@@ -6,7 +6,7 @@ class CreateShops < ActiveRecord::Migration[7.1]
       t.integer :phone_number
       t.string :opening_hours
       t.float :latitude
-      t.float :longtitude
+      t.float :longitude
       t.string :place_id
 
       t.timestamps
