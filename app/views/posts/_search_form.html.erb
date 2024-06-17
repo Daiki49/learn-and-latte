@@ -1,0 +1,7 @@
+<%= search_form_for q, url: url do |f| %>
+  <div class="flex mb-3">
+    <%= f.search_field :title_or_body_or_shop_name_cont, class: 'form-input flex-grow border pl-3 pr-3', placeholder: '検索ワード' %>
+    <div class="input-group-append ml-3">
+      <%= f.submit class: 'btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+    </div>
+<% end %>
