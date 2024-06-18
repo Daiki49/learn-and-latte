@@ -2,11 +2,13 @@
   <div class="flex flex-wrap -mx-2">
     <div class="w-full lg:w-10/12 lg:mx-auto">
         <div class="flex mb-3">
-          <button class="btn btn-primary bg-blue-500 text-white mr-20">近くのお店を探す</button>
+          <button class="btn btn-primary bg-blue-500 text-white mr-10">近くのお店を探す</button>
           <!-- 検索フォーム -->
           <div class="flex-grow">
             <%= render 'posts/search_form', q: @q, url: posts_path %>
+            <%= button_to '投稿', new_post_path, method: :get, class: "btn btn-primary bg-blue-500 text-white ml-10" %>
           </div>
+
         </div>
     </div>
   </div>

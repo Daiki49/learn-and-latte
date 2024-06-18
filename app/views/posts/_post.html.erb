@@ -16,6 +16,11 @@
         <ul class="list-none mt-4 space-y-2">
           <li class="flex items-center space-x-2"><i class="bi bi-person"></i><%= "by #{post.user.name}" %></li>
           <li class="flex items-center space-x-2"><i class="bi bi-calendar"></i><%= l post.created_at.to_date, format: :long %></li>
+
+          <li class="flex items-center space-x-2"><%= "お店の雰囲気：星 #{post.quietness_level}" %></li>
+          <li class="flex items-center space-x-2"><%= "座席の快適さ：星 #{post.seat_comfort_level}" %></li>
+          <li class="flex items-center space-x-2"><%= "Wi-fiの快適さ：星 #{post.wifi_comfort_level}" %></li>
+          <li class="flex items-center space-x-2"><%= "電源は使えたか： #{post.power_availability}" %></li>
         </ul>
         <p class="mt-4 text-gray-700"><%= post.body %></p>
       </div>

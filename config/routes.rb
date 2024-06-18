@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root "static_pages#top"
-  resources :posts, only: %i[index]
-  
+  resources :posts, only: %i[index new create]
+
+
 end
