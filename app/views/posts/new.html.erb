@@ -42,8 +42,8 @@
 
         <!-- 電源 -->
         <div class="mb-3">
-          <%= f.label :"電源は使えたか（必須）", class: "block font-bold mb-2" %>
-          <%= f.select :power_availability, [["電源が使える席があって使えた", 1], ["電源が使える席がなくて使えなかった", 2], ["特に電源を使う必要がなかった", 3]], {include_blank: "選択して下さい" }, { class: "border bg-gray-200 p-3" } %>
+        <%= f.label :"電源は使えたか（必須）", class: "block font-bold mb-2" %>
+          <%= f.select :power_availability, Post.power_availabilities.keys.map { |k| [Post.human_attribute_name("power_availability.#{k}"), k] }, { include_blank: "選択して下さい（数字が大きい方が快適）" }, { class: "border bg-gray-200 p-3" } %>
         </div>
 
         <!-- 本文 -->
