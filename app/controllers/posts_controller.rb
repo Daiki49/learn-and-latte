@@ -10,20 +10,24 @@ class PostsController < ApplicationController
   end
 
   def create
-    @shop = Shop.find_or_create_by(name: shop_params[:shop_name], address: shop_params[:shop_address])
-    if @shop.save
-      @post = User.find(1).posts.build(post_params.merge(shop_id: @shop.id))
-      if @post.save
-        flash[:success] = '投稿成功'
-        redirect_to posts_path# , success: '投稿成功'
+    ActiveRecord::Base.transaction do
+      @shop = Shop.find_or_create_by(name: shop_params[:shop_name], address: shop_params[:shop_address])
+      if @shop.save
+        @post = User.find(1).posts.build(post_params.merge(shop_id: @shop.id))
+        if @post.save
+          redirect_to posts_path, success: t('posts.create.success')
+        else
+          flash.now[:danger] = t('posts.create.failure') + @post.errors.full_messages.join(', ')
+          render :new, status: :unprocessable_entity
+          raise ActiveRecord::Rollback
+        end
       else
-        flash.now[:danger] = '投稿失敗: ' + @post.errors.full_messages.join(', ')
+        @post = User.find(1).posts.build(post_params.merge(shop_id: @shop.id))
+        @post.valid?
+        flash.now[:danger] = t('posts.create.failure') + @post.errors.full_messages.join(', ')
         render :new, status: :unprocessable_entity
         raise ActiveRecord::Rollback
       end
-    else
-      flash.now[:danger] = '投稿失敗: ' + @shop.errors.full_messages.join(', ')
-      render :new, status: :unprocessable_entity
     end
   end
 

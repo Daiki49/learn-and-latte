@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    models:
+      post: 投稿
+    attributes:
+      shop:
+        name: 店名
+        address: 住所
+      post:
+        shop: 店舗情報(店名・住所)
+        quietness_level: お店の雰囲気
+        seat_comfort_level: 座席の快適さ
+        wifi_comfort_level: Wi-Fiの快適さ
+        power_availability: 電源は使えたか
