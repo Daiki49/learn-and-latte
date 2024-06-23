@@ -9,23 +9,27 @@ class PostsController < ApplicationController
     @shop = Shop.new
   end
 
-def create
-  @shop = Shop.find_or_create_by(name: shop_params[:shop_name], address: shop_params[:shop_address])
-  if @shop.save
-    @post = User.find(1).posts.build(post_params.merge(shop_id: @shop.id))
-    if @post.save
-      flash[:success] = '投稿成功'
-      redirect_to posts_path# , success: '投稿成功'
+  def create
+    @shop = Shop.find_or_create_by(name: shop_params[:shop_name], address: shop_params[:shop_address])
+    if @shop.save
+      @post = User.find(1).posts.build(post_params.merge(shop_id: @shop.id))
+      if @post.save
+        flash[:success] = '投稿成功'
+        redirect_to posts_path# , success: '投稿成功'
+      else
+        flash.now[:danger] = '投稿失敗: ' + @post.errors.full_messages.join(', ')
+        render :new, status: :unprocessable_entity
+        raise ActiveRecord::Rollback
+      end
     else
-      flash.now[:danger] = '投稿失敗: ' + @post.errors.full_messages.join(', ')
+      flash.now[:danger] = '投稿失敗: ' + @shop.errors.full_messages.join(', ')
       render :new, status: :unprocessable_entity
-      raise ActiveRecord::Rollback
     end
-  else
-    flash.now[:danger] = '投稿失敗: ' + @shop.errors.full_messages.join(', ')
-    render :new, status: :unprocessable_entity
   end
-end
+
+  def show
+    @post = Post.find(params[:id])
+  end
 
   private
 
