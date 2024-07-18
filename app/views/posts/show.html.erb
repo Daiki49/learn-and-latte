@@ -24,7 +24,9 @@
               </ul>
             </div>
             <div class="w-full md:w-3/12">
-              <%= image_tag "post_placeholder.jpg", width: "300", height: "200", class: "card-img-top img-fluid" %>
+              <% @post.post_images.each do |image| %>
+                <div class="swiper-slide"><%= image_tag image.to_s , width: "300", height: "200", class: "card-img-top img-fluid" %></div>
+              <% end %>
             </div>
           </div>
         </div>
