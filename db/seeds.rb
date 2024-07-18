@@ -13,6 +13,8 @@ User.create!(name: "テストユーザー",
                email: "learn-and-latte@example.com",
                password_digest: "password")
 
+Shop.create!(name: "learn-and-latte-cafe",
+              address: "東京都渋谷区××町1-1")
 # require 'faker'
 
 # users = 10.times.map do
