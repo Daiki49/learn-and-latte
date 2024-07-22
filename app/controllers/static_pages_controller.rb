@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
   def top
-    @q = Post.ransack(params[:q])
+    @q = Shop.ransack(params[:q])
   end
 end

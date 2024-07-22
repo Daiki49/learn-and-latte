@@ -15,6 +15,10 @@ User.create!(name: "テストユーザー",
 
 Shop.create!(name: "learn-and-latte-cafe",
               address: "東京都渋谷区××町1-1")
+
+Shop.create!(name: "learn-and-latte-cafe2",
+              address: "東京都渋谷区××町2-2")
+
 # require 'faker'
 
 # users = 10.times.map do
