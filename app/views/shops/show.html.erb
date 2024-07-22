@@ -1,0 +1,12 @@
+<div class="container mx-auto">
+  <div class="flex flex-wrap">
+    <div class="w-full lg:w-1/2 lg:mx-auto">
+      <p>店名: <%= @shop.name %></p>
+      <p>住所: <%= @shop.address %></p>
+
+      <div class="mt-5">
+        <%= link_to new_post_path(shop_id: @shop.id), class: "btn btn-primary bg-blue-500 text-white" do %>レビューを投稿する<% end %>
+      </div>
+    </div>
+  </div>
+</div>
