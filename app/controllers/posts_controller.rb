@@ -6,28 +6,25 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @shop = Shop.new
+    @shop = Shop.find_by(id: params[:shop_id])
   end
 
   def create
-    ActiveRecord::Base.transaction do
-      @shop = Shop.find_or_create_by(name: shop_params[:shop_name], address: shop_params[:shop_address])
-      if @shop.save
-        @post = User.find(1).posts.build(post_params.merge(shop_id: @shop.id))
-        if @post.save
-          redirect_to posts_path, success: t('posts.create.success')
-        else
-          flash.now[:danger] = t('posts.create.failure') + @post.errors.full_messages.join(', ')
-          render :new, status: :unprocessable_entity
-          raise ActiveRecord::Rollback
-        end
-      else
-        @post = User.find(1).posts.build(post_params.merge(shop_id: @shop.id))
-        @post.valid?
-        flash.now[:danger] = t('posts.create.failure') + @post.errors.full_messages.join(', ')
-        render :new, status: :unprocessable_entity
-        raise ActiveRecord::Rollback
-      end
+    # フォームに含まれるpostオブジェクトの中のshop_idフィールドの値を取得し、Shopオブジェクトを検索
+    @shop = Shop.find_by(id: params[:post][:shop_id])
+    if @shop.nil?
+      # shopが見つからない場合の処理
+      flash[:error] = "レビュー対象のお店が見つかりません。"
+      render :new, status: :unprocessable_entity
+      return
+    end
+    @post = User.find_by(id: 1).posts.build(post_params.merge(shop_id: @shop.id))
+    if @post.save
+      redirect_to posts_path, success: t('posts.create.success')
+    else
+      # 保存に失敗した場合の処理
+      flash.now[:danger] = t('posts.create.failure') + @post.errors.full_messages.join(', ')
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -37,11 +34,7 @@ class PostsController < ApplicationController
 
   private
 
-  def shop_params
-    params.require(:post).permit(:shop_name, :shop_address)
-  end
-
   def post_params
-    params.require(:post).permit(:title, :quietness_level, :seat_comfort_level, :wifi_comfort_level, :power_availability, :body)
+    params.require(:post).permit(:title, :quietness_level, :seat_comfort_level, :wifi_comfort_level, :power_availability, :body, { post_images: [] })
   end
 end
