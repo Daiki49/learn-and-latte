@@ -16,25 +16,104 @@
 </div>
 
 <script>
-  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-    key: gon.google_maps_api_key,
-    v: "weekly",
-    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-    // Add other bootstrap parameters as needed, using camel case.
-  });
-</script>
-
-<script>
-  let map;
-
-  async function initMap() {
-    const { Map } = await google.maps.importLibrary("maps");
-
-    map = new Map(document.getElementById("map"), {
-      center: { lat: -34.397, lng: 150.644 },
-      zoom: 8,
-    });
+  if (typeof myMap === 'undefined') {
+    var myMap;
+  }
+  if (typeof currentLocationMarker === 'undefined') {
+    var currentLocationMarker;
   }
 
-  initMap();
+  if (typeof defaultLocation === 'undefined') {
+    var defaultLocation = { lat: 35.68978920591743, lng: 139.70055989948156 };
+  }
+
+  // Maps JavaScript APIの読み込み
+  function loadScript() {
+
+    var existingScript = document.querySelector('script[src^="https://maps.googleapis.com/maps/api/js"]');
+    if (!existingScript) {
+      var script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${gon.google_maps_api_key}&callback=initMap`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    if (!window.google || !window.google.maps) {
+      loadScript(); // スクリプトをロード
+    } else if (typeof myMap === 'undefined') {
+
+      // マップが初期化されていなければ初期化
+      initMap();
+    }
+  });
+
+  function initMap() {
+    const geocoder = new google.maps.Geocoder();
+    const mapElement = document.getElementById('map');
+    if (!mapElement) {
+      console.error("Map element not found.");
+      return;
+    }
+
+    myMap = new google.maps.Map(mapElement, {
+      zoom: 16,
+      streetViewControl: false, // ストリートビューのボタン非表示
+      mapTypeControl: false, // 地図、航空写真のボタン非表示
+      fullscreenControl: false, // フルスクリーンボタン非表示
+    });
+
+    showCurrentLocation();
+
+    //現在地をマーカーで表示
+    currentLocationMarker = new google.maps.Marker({
+      map: myMap,
+      position: myMap.getCenter(), // 初期位置をマップの中心に設定
+      title: "現在地"
+    });
+  }
+  window.initMap = initMap;
+
+  function showCurrentLocation(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // 現在地を取得してマーカーで表示
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          if (myMap) {
+            myMap.setCenter(pos);
+            currentLocationMarker.setPosition(pos);
+          } else {
+            console.error("myMap is not initialized.");
+          }
+        },
+        () => {
+          // 位置情報の取得に失敗した場合
+          alert('位置情報の取得に失敗しました。');
+          if (myMap) {
+            myMap.setCenter(defaultLocation);
+          } else {
+            console.error("myMap is not initialized.");
+          }
+        }
+      );
+    } else {
+      // ブラウザが位置情報の取得をサポートしていない場合
+      alert('お使いのブラウザでは位置情報の取得がサポートされていません。');
+      if (myMap) {
+        myMap.setCenter(defaultLocation);
+      } else {
+        console.error("myMap is not initialized.");
+      }
+    }
+  }
+
+  window.showCurrentLocation = showCurrentLocation;
+
+
 </script>
