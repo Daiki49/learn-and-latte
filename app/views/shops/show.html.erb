@@ -4,9 +4,64 @@
       <p>店名: <%= @shop.name %></p>
       <p>住所: <%= @shop.address %></p>
 
+      <div id="map" style="height: 400px; width: 100%;"></div>
+
       <div class="mt-5">
         <%= link_to new_post_path(shop_id: @shop.id), class: "btn btn-primary bg-blue-500 text-white" do %>レビューを投稿する<% end %>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  var existingScript = document.querySelector('script[src^="https://maps.googleapis.com/maps/api/js"]');
+  if (!existingScript) {
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      key: gon.google_maps_api_key,
+      v: "weekly",
+      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+      // Add other bootstrap parameters as needed, using camel case.
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', async function () {
+    await initMap();
+  });
+</script>
+
+<script>
+if (typeof map === 'undefined') {
+  var map;
+}
+
+async function initMap() {
+  // [START maps_add_map_instantiate_map]
+  // The location of Shinjuku Station
+  const position = { lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %>  };
+  // Request needed libraries.
+  //@ts-ignore
+  const { Map } = await google.maps.importLibrary("maps");
+  const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+
+  // The map, centered at Shinjuku Station
+  map = new Map(document.getElementById("map"), {
+    zoom: 16,
+    center: position,
+    mapId: "DEMO_MAP_ID",
+  });
+
+  // [END maps_add_map_instantiate_map]
+
+  // [START maps_add_map_instantiate_marker]
+  // The marker, positioned at Shop Location
+  const marker = new google.maps.marker.AdvancedMarkerElement({
+    map: map,
+    position: position,
+    title: "shop location",
+  });
+  // [END maps_add_map_instantiate_marker]
+}
+
+initMap();
+// [END maps_add_map]
+</script>
