@@ -106,6 +106,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.0)
       railties (>= 6.0.0)
+    csv (3.3.0)
     date (3.3.4)
     debug (1.9.2)
       irb (~> 1.10)
@@ -131,6 +132,12 @@ GEM
       i18n (>= 0.7)
       multi_json
       request_store (>= 1.0)
+    google_places (2.0.0)
+      httparty (>= 0.13.1)
+    httparty (0.22.0)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -161,6 +168,8 @@ GEM
     minitest (5.23.1)
     msgpack (1.7.2)
     multi_json (1.15.0)
+    multi_xml (0.7.1)
+      bigdecimal (~> 3.1)
     mutex_m (0.2.0)
     net-imap (0.4.12)
       date
@@ -310,6 +319,7 @@ DEPENDENCIES
   dotenv-rails
   faker
   gon
+  google_places
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
