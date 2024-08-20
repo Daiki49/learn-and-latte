@@ -27,6 +27,9 @@
     var defaultLocation = { lat: 35.68978920591743, lng: 139.70055989948156 };
   }
 
+  let marker, markers = [];
+  var shops = gon.shops;
+
   // Maps JavaScript APIの読み込み
   function loadScript() {
 
@@ -63,6 +66,19 @@
       streetViewControl: false, // ストリートビューのボタン非表示
       mapTypeControl: false, // 地図、航空写真のボタン非表示
       fullscreenControl: false, // フルスクリーンボタン非表示
+    });
+
+    console.log(shops)
+    // 登録されているshopのマーカーを追加
+    shops.forEach(shop => {
+      const marker = new google.maps.Marker({
+        position: { lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude) },
+        map: myMap,
+        title: shop.name,
+      });
+
+      markers.push(marker);
+
     });
 
     showCurrentLocation();

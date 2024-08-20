@@ -4,6 +4,8 @@ class StaticPagesController < ApplicationController
 
   def top
     @q = Shop.ransack(params[:q])
+    @shops = Shop.all
+    gon.shops = @shops.as_json
   end
 
   private
