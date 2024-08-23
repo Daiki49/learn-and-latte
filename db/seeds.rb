@@ -13,16 +13,6 @@ User.create!(name: "テストユーザー",
                email: "learn-and-latte@example.com",
                password_digest: "password")
 
-Shop.create!(name: "learn-and-latte-cafe",
-              address: "東京都渋谷区××町1-1",
-              longitude: 139.70238937731,
-              latitude: 35.659800337727,)
-
-Shop.create!(name: "learn-and-latte-cafe2",
-              address: "東京都渋谷区××町2-2",
-              longitude: 139.6969924,
-              latitude: 35.6666688,)
-
 # require 'faker'
 
 # users = 10.times.map do

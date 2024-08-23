@@ -17,6 +17,13 @@ namespace :Cafe do
       place_id = get_place_id(shop['電話番号'])
 
       if place_id
+        # データベース内を検索
+        existing_shop = Shop.find_by(place_id: place_id)
+        if existing_shop
+          puts "既に保存済みです: #{shop['店名']}"
+          return nil
+        end
+
         #クエリーパラメータの作成
         place_detail_query = URI.encode_www_form(
           place_id: place_id,
