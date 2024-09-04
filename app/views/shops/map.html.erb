@@ -2,25 +2,22 @@
   <div class="container mx-auto">
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 lg:mx-auto">
-        <div class="flex flex-wrap mt-3 mb-3 px-4">
-          <button class="btn btn-primary bg-blue-500 text-white mr-5 mb-3">
-            <%= link_to "近くのお店を探す", map_shops_path  %>
-          </button>
-          <div class="flex-grow">
-            <%= render 'shops/search_form', q: @q, url: shops_path %>
-          </div>
-        </div>
-        <%= image_tag 'toppage.jpg' %>
         <div id="map" style="height: 400px; width: 100%;"></div>
       </div>
     </div>
   </div>
 </div>
 
+
 <script>
-  if (typeof myMap === 'undefined') {
-    var myMap;
-  }
+  var map
+//  if (typeof map === 'undefined') {
+//    var map;
+//  }
+
+
+
+
   if (typeof currentLocationMarker === 'undefined') {
     var currentLocationMarker;
   }
@@ -29,8 +26,20 @@
     var defaultLocation = { lat: 35.68978920591743, lng: 139.70055989948156 };
   }
 
+  var lat = defaultLocation.lat;
+  var lng = defaultLocation.lng;
+
   let marker, markers = [];
   var shops = gon.shops;
+
+  window.addEventListener('DOMContentLoaded', function() {
+    if (!window.google || !window.google.maps) {
+      loadScript(); // スクリプトをロード
+    } else if (typeof map === 'undefined') {
+      // マップが初期化されていなければ初期化
+      initMap();
+    }
+  });
 
   // Maps JavaScript APIの読み込み
   function loadScript() {
@@ -45,16 +54,7 @@
     }
   }
 
-  window.addEventListener('DOMContentLoaded', function() {
-    if (!window.google || !window.google.maps) {
-      loadScript(); // スクリプトをロード
-    } else if (typeof myMap === 'undefined') {
-
-      // マップが初期化されていなければ初期化
-      initMap();
-    }
-  });
-
+  // Mapの初期化
   function initMap() {
     const geocoder = new google.maps.Geocoder();
     const mapElement = document.getElementById('map');
@@ -63,75 +63,116 @@
       return;
     }
 
-    myMap = new google.maps.Map(mapElement, {
+    map = new google.maps.Map(mapElement, {
       zoom: 16,
       streetViewControl: false, // ストリートビューのボタン非表示
       mapTypeControl: false, // 地図、航空写真のボタン非表示
       fullscreenControl: false, // フルスクリーンボタン非表示
     });
 
-    console.log(shops)
     // 登録されているshopのマーカーを追加
+    addShopMarkers();
+
+    // 現在地を取得
+    showCurrentLocation();
+
+    // 現在地をマーカーで表示
+    addCurrentLocationMaker();
+
+  }
+
+  // 登録されているshopのマーカーを追加
+  function addShopMarkers() {
     shops.forEach(shop => {
       const marker = new google.maps.Marker({
         position: { lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude) },
-        map: myMap,
+        map: map,
         title: shop.name,
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: shop.name
+      });
+
+      marker.addListener("click", () => {
+        infoWindow.open({
+          anchor: marker,
+          map,
+        });
       });
 
       markers.push(marker);
 
     });
-
-    showCurrentLocation();
-
-    //現在地をマーカーで表示
-    currentLocationMarker = new google.maps.Marker({
-      map: myMap,
-      position: myMap.getCenter(), // 初期位置をマップの中心に設定
-      title: "現在地"
-    });
   }
-  window.initMap = initMap;
 
+  // 現在地を取得
   function showCurrentLocation(){
     if (navigator.geolocation) {
+      // ブラウザが位置情報の取得をサポートしている場合
+      // 現在地を取得
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // 現在地を取得してマーカーで表示
           const pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
-          };t
-          if (myMap) {
-            myMap.setCenter(pos);
+          };
+
+          if (map) {
+            // マップの中心を現在地に設定
+            map.setCenter(pos);
             currentLocationMarker.setPosition(pos);
+
+
           } else {
-            console.error("myMap is not initialized.");
+            console.error("map is not initialized.");
           }
         },
         () => {
           // 位置情報の取得に失敗した場合
           alert('位置情報の取得に失敗しました。');
-          if (myMap) {
-            myMap.setCenter(defaultLocation);
+          if (map) {
+            // マップの中心をデフォルト位置に設定
+            map.setCenter(defaultLocation);
           } else {
-            console.error("myMap is not initialized.");
+            console.error("map is not initialized.");
           }
         }
       );
     } else {
       // ブラウザが位置情報の取得をサポートしていない場合
       alert('お使いのブラウザでは位置情報の取得がサポートされていません。');
-      if (myMap) {
-        myMap.setCenter(defaultLocation);
+      if (map) {
+        // マップの中心をデフォルト位置に設定
+        map.setCenter(defaultLocation);
       } else {
-        console.error("myMap is not initialized.");
+        console.error("map is not initialized.");
       }
     }
   }
 
+  // 現在地をマーカーで表示
+  function addCurrentLocationMaker() {
+
+    currentLocationMarker = new google.maps.Marker({
+      map: map,
+      position: map.getCenter(), // 初期位置をマップの中心に設定
+      title: "現在地"
+    });
+  }
+
+  window.initMap = initMap;
+
   window.showCurrentLocation = showCurrentLocation;
 
+  function updateSpotsList() {
+
+    console.log("テスト");
+
+    if (!map) {
+      console.error('Map is not initialized.');
+      return;
+    }
+  }
 
 </script>

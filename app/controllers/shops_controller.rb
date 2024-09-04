@@ -11,6 +11,12 @@ class ShopsController < ApplicationController
     @shop = Shop.find(params[:id])
   end
 
+  def map
+    @q = Shop.ransack(params[:q])
+    @shops = Shop.all
+    gon.shops = @shops.as_json
+  end
+
   private
 
   def set_google_maps_api_key

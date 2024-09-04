@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "static_pages#top"
   resources :posts, only: %i[index new create show]
-  resources :shops, only: %i[index show]
-
+  resources :shops, only: %i[index show] do
+    collection do
+      get 'map'
+    end
+  end
 end
