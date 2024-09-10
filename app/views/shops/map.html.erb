@@ -3,6 +3,14 @@
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 lg:mx-auto">
         <div id="map" style="height: 400px; width: 100%;"></div>
+        <div class="flex flex-wrap">
+          <% if @shops.present? %>
+            <%= "半径10km以内の検索結果:#{@shops.size}件" %>
+            <%= render @shops %>
+          <% else %>
+            <div class="mb-3">半径10km以内の検索結果:0件</div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
