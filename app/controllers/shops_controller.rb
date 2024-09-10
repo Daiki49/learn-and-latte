@@ -12,8 +12,13 @@ class ShopsController < ApplicationController
   end
 
   def map
-    @q = Shop.ransack(params[:q])
-    @shops = Shop.all
+    # パラメータから緯度・経度を取得
+    latitude = params[:latitude].to_f
+    longitude = params[:longitude].to_f
+    origin = [latitude, longitude]
+    # 半径10km以内のカフェを検索
+    @shops = Shop.all.within(10, origin: [latitude, longitude])
+    # カフェの情報をJavaScriptに渡す
     gon.shops = @shops.as_json
   end
 

@@ -15,9 +15,6 @@
 //    var map;
 //  }
 
-
-
-
   if (typeof currentLocationMarker === 'undefined') {
     var currentLocationMarker;
   }
@@ -134,6 +131,7 @@
           if (map) {
             // マップの中心をデフォルト位置に設定
             map.setCenter(defaultLocation);
+            currentLocationMarker.setPosition(defaultLocation);
           } else {
             console.error("map is not initialized.");
           }
@@ -164,15 +162,5 @@
   window.initMap = initMap;
 
   window.showCurrentLocation = showCurrentLocation;
-
-  function updateSpotsList() {
-
-    console.log("テスト");
-
-    if (!map) {
-      console.error('Map is not initialized.');
-      return;
-    }
-  }
 
 </script>
