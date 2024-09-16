@@ -9,6 +9,7 @@ class ShopsController < ApplicationController
 
   def show
     @shop = Shop.find(params[:id])
+    @posts = @shop.posts.includes(:user).order(created_at: :desc)
   end
 
   def map
