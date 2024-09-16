@@ -4,7 +4,7 @@
       <div class="w-full lg:w-1/2 lg:mx-auto">
         <div class="flex flex-wrap mt-3 mb-3 px-4">
           <button class="btn btn-primary bg-blue-500 text-white mr-5 mb-3">
-            <%= link_to "マップ検索", "#", id: "search-nearby-shops", onclick: "CurrentLocations(); return false;" %>
+            <%= link_to "マップ検索", map_shops_path %>
           </button>
           <div class="flex-grow">
             <%= render 'shops/search_form', q: @q, url: shops_path %>

@@ -20,6 +20,11 @@ class ShopsController < ApplicationController
     @shops = Shop.all.within(10, origin: [latitude, longitude])
     # カフェの情報をJavaScriptに渡す
     gon.shops = @shops.as_json
+    # リクエストがHTMLかJSONかをチェック
+    respond_to do |format|
+      format.html # HTMLの場合は通常のビューを表示
+      format.json { render json: { shops: @shops.as_json } } # JSON形式の場合はデータを返す
+    end
   end
 
   private
