@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   resources :posts, only: %i[index new create show]
   resources :shops, only: %i[index show] do
     collection do
-      get 'map'
+      get 'map', to: 'shops#map', as: 'map'
+      get 'map.json', to: 'shops#map', defaults: { format: 'json' }
     end
   end
 end
