@@ -16,4 +16,33 @@ class Shop < ApplicationRecord
     acts_as_mappable default_units: :kms,
                     lat_column_name: :latitude,
                     lng_column_name: :longitude
+
+    def average_score_for(column)
+        unless self.posts.empty?
+            posts.average(column).round(1)
+        else
+            0.0
+        end
+    end
+
+    def average_score_percentage_for(column)
+        unless self.posts.empty?
+            posts.average(column).round(1).to_f * 100 / 5
+        else
+            0.0
+        end
+    end
+
+    # power_availabilityの各選択肢ごとの割合を計算するメソッド
+    def power_availability_percentage_for(column)
+        total_posts = posts.count.to_f
+        return {} if total_posts.zero?
+
+        percentages = {}
+        Post.send(column.to_s.pluralize).keys.each do |key|
+        count = posts.where(column => key).count
+        percentages[key] = (count / total_posts * 100).round(1)
+        end
+        percentages
+    end
 end

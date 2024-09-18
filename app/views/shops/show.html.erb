@@ -19,6 +19,54 @@
         </div>
       <% end %>
 
+      <div class="border-t my-4">
+          <p class="text-sm pb-4 pt-4 font-bold">みんなのレビュー評価・分布</p>
+          <!-- TODO: 評価は数値だけでなく星でも表示できるようにする -->
+          <p class="pb-3">
+            評価（平均）:
+            <% if @average_rating == 0.0 %>
+              -
+            <% else %>
+              <%= @average_rating %>/5
+            <% end %>
+          </p>
+          <p class="pb-3">
+            お店の雰囲気（数字が大きい方が静か）:
+            <% if @average_rating == 0.0 %>
+              -
+            <% else %>
+              <%= @average_quietness_level %>/5
+            <% end %>
+          </p>
+          <p class="pb-3">
+            座席の快適さ:
+            <% if @average_rating == 0.0 %>
+              -
+            <% else %>
+              <%= @average_seat_comfort_level %>/5
+            <% end %>
+          </p>
+          <p class="pb-3">
+            Wi-Fiの快適さ:
+            <% if @average_rating == 0.0 %>
+              -
+            <% else %>
+              <%= @average_wifi_comfort_level %>/5
+            <% end %>
+          </p>
+          <!-- TODO: 割合は数値だけでなく帯グラフでも表示できるようにする -->
+          <p>電源:</p>
+            <ul>
+              <% if @power_availability_percentage.empty? %>
+                <li> - </li>
+              <% else %>
+                <% @power_availability_percentage.each do |key, percentage| %>
+                  <li><%= key %>: <%= percentage %>%</li>
+                <% end %>
+              <% end %>
+            </ul>
+      </div>
+
       <div class="border-t my-4 flex items-center justify-between">
         <div class="text-sm font-bold pt-4 pb-4">レビュー</div>
         <%= link_to new_post_path(shop_id: @shop.id), class: "btn btn-primary bg-blue-500 text-white" do %>投稿する<% end %>
@@ -34,6 +82,9 @@
                 <% end %>
                 <% if post.user.present? %>
                   <p class="mt-3">投稿者: <%= post.user.name %></p>
+                <% end %>
+                <% if post.quietness_level.present? %>
+                  <p class="mt-3">評価: <%= post.rating %></p>
                 <% end %>
                 <% if post.quietness_level.present? %>
                   <p class="mt-3">静かさ: <%= post.quietness_level %></p>

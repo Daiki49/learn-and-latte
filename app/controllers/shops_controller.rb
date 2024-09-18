@@ -10,6 +10,11 @@ class ShopsController < ApplicationController
   def show
     @shop = Shop.find(params[:id])
     @posts = @shop.posts.includes(:user).order(created_at: :desc)
+    @average_rating = @shop.average_score_for(:rating)
+    @average_quietness_level = @shop.average_score_for(:quietness_level)
+    @average_seat_comfort_level = @shop.average_score_for(:seat_comfort_level)
+    @average_wifi_comfort_level = @shop.average_score_for(:wifi_comfort_level)
+    @power_availability_percentage = @shop.power_availability_percentage_for(:power_availability)
   end
 
   def map

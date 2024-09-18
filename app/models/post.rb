@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   mount_uploaders :post_images, PostImageUploader
 
   def self.ransackable_attributes(auth_object = nil)
-    ["body", "created_at", "id", "power_availability", "quietness_level", "seat_comfort_level", "shop_id", "title", "updated_at", "user_id", "wifi_comfort_level"]
+    ["body", "created_at", "id", "ratign", "power_availability", "quietness_level", "seat_comfort_level", "shop_id", "title", "updated_at", "user_id", "wifi_comfort_level"]
   end
 
   def self.ransackable_associations(auth_object = nil)

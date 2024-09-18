@@ -35,6 +35,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :quietness_level, :seat_comfort_level, :wifi_comfort_level, :power_availability, :body, { post_images: [] })
+    params.require(:post).permit(:title, :rating, :quietness_level, :seat_comfort_level, :wifi_comfort_level, :power_availability, :body, { post_images: [] })
   end
 end
