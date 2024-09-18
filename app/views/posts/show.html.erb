@@ -17,6 +17,7 @@
                 <li class="flex items-center"><%= "店名 : #{@post.shop.name}" %></li>
                 <li class="flex items-center"><%= @post.shop.address %></li>
                 <li class="flex items-center"><%= simple_format(@post.body) %></li>
+                <li class="flex items-center"><%= "評価 : 星 #{@post.rating}" %></li>
                 <li class="flex items-center"><%= "お店の雰囲気 : 星 #{@post.quietness_level}" %></li>
                 <li class="flex items-center"><%= "座席の快適さ : 星 #{@post.seat_comfort_level}" %></li>
                 <li class="flex items-center"><%= "Wi-fiの快適さ : 星 #{@post.wifi_comfort_level}" %></li>
