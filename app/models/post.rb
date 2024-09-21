@@ -12,7 +12,7 @@ class Post < ApplicationRecord
     ["shop", "user"]
   end
 
-  validates :quietness_level, :seat_comfort_level, :wifi_comfort_level, :power_availability, presence: true
+  validates :quietness_level, :seat_comfort_level, :wifi_comfort_level, :power_availability, :rating, presence: true
 
   enum power_availability: { 電源が使える席があって使えた: 1, 電源が使える席がなくて使えなかった: 2, 特に電源を使う必要がなかった: 3 }
 end
