@@ -9,9 +9,9 @@
 #   end
 
 
-User.create!(name: "テストユーザー",
-               email: "learn-and-latte@example.com",
-               password_digest: "password")
+# User.create!(name: "テストユーザー",
+#                email: "learn-and-latte@example.com",
+#                password_digest: "password")
 
 # require 'faker'
 
