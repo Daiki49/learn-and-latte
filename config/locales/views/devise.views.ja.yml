@@ -1,0 +1,145 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        current_password: "現在のパスワード"
+        name: "ニックネーム"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "確認用パスワード"
+        remember_me: "ログインを記憶"
+    models:
+      user: "ユーザ"
+  devise:
+    confirmations:
+      confirmed: "メールアドレスの確認が完了しました"
+      send_instructions: "数分以内にメールアドレスの確認方法を記載したメールが届きます"
+      send_paranoid_instructions: "登録されているメールアドレスに確認方法を記載したメールが届きます"
+      # new:
+      #   resend_confirmation_instructions: "アカウント確認メール再送"
+    failure:
+      already_authenticated: "すでにログインしています"
+      inactive: "アカウントが有効化されていません"
+      invalid: "%{authentication_keys}またはパスワードが違います"
+      locked: "アカウントはロックされています"
+      last_attempt: "もう一回誤るとアカウントがロックされます"
+      not_found_in_database: "%{authentication_keys}またはパスワードが違います"
+      timeout: "セッションがタイムアウトしました。もう一度ログインしてください"
+      unauthenticated: "ログインもしくはアカウント登録してください"
+      unconfirmed: "メールアドレスの本人確認が必要です"
+    mailer:
+      confirmation_instructions:
+        subject: "アカウント確認"
+      reset_password_instructions:
+        subject: "パスワード再設定"
+      unlock_instructions:
+        subject: "アカウントのロック解除"
+      email_changed:
+        subject: "メールアドレス変更"
+      password_change:
+        subject: "パスワード変更"
+      omniauth_callbacks:
+        failure: "%{kind}での認証に失敗しました。理由: \"%{reason}\""
+        success: "%{kind}での認証に成功しました"
+      passwords:
+        no_token: "パスワード再設定のメールからアクセスしてください。再設定のメールからアクセスしている場合は、提供された完全なURLを使用したか確認してください"
+        send_instructions: "数分以内にパスワード再設定方法を記載したメールが届きます"
+        send_paranoid_instructions: "登録されているメールアドレスにパスワード再設定リンクが届きます"
+        updated: "パスワードが変更されました。ログインし直してください"
+        updated_not_active: "パスワードが変更されました"
+    registrations:
+      destroyed: "アカウントを削除しました。またのご利用をお待ちしております"
+      signed_up: "アカウント登録が完了しました"
+      signed_up_but_inactive: "アカウント登録が完了しましたが、アカウントが有効化されていません"
+      signed_up_but_locked: "アカウント登録が完了しましたが、アカウントがロックされています"
+      signed_up_but_unconfirmed: "確認用のメールを送信しました。メール内のリンクをクリックしてアカウントを有効化してください"
+      update_needs_confirmation: "アカウント情報を更新しましたが、新しいメールアドレスを確認する必要があります。メールを確認し、リンクをクリックして新しいメールアドレスを確認してください"
+      updated: "アカウント情報を更新しました"
+      updated_but_not_signed_in: "アカウント情報を更新しましたが、パスワードが変更されたため、再度ログインが必要です"
+      new:
+        sign_up: "アカウント登録"
+        characters_minimum: "文字以上"
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"
+      already_signed_out: "ログアウトしました"
+      new:
+        sign_in: "ログイン"
+    unlocks:
+      send_instructions: "数分以内にアカウントのロック解除方法を記載したメールが届きます"
+      send_paranoid_instructions: "登録されているメールアドレスにアカウントのロック解除方法を記載したメールが届きます"
+      unlocked: "アカウントのロックが解除されました。続けてログインしてください"
+    errors:
+      messages:
+        already_confirmed: "はすでに確認済みです。ログインしてください"
+        confirmation_period_expired: "%{period}以内に確認しないと無効になります。再度確認を行ってください"
+        expired: "有効期限が切れています。再度確認を行ってください"
+        not_found: "見つかりません"
+        not_locked: "はロックされていません"
+        not_saved:
+          one: "1件のエラーがあります"
+          other: "%{count}件のエラーがあります"
+
+
+
+
+    #     action: "アカウント確認"
+    #     greeting: "ようこそ、%{recipient}さん!"
+    #     instruction: "次のリンクでメールアドレスの確認が完了します:"
+    #   reset_password_instructions:
+    #     action: "パスワード変更"
+    #     greeting: "こんにちは、%{recipient}さん!"
+    #     instruction: "誰かがパスワードの再設定を希望しました。次のリンクでパスワードの再設定が出来ます。"
+    #     instruction_2: "あなたが希望したのではないのなら、このメールは無視してください。"
+    #     instruction_3: "上のリンクにアクセスして新しいパスワードを設定するまで、パスワードは変更されません。"
+    #   unlock_instructions:
+    #     action: "アカウントのロック解除"
+    #     greeting: "こんにちは、%{recipient}さん!"
+    #     instruction: "アカウントのロックを解除するには下のリンクをクリックしてください。"
+    #     message: "ログイン失敗が繰り返されたため、アカウントはロックされています。"
+    # passwords:
+    #   edit:
+    #     change_my_password: "パスワードを変更する"
+    #     change_your_password: "パスワードを変更"
+    #     confirm_new_password: "確認用新しいパスワード"
+    #     new_password: "新しいパスワード"
+    #   new:
+    #     forgot_your_password: "パスワードを忘れましたか?"
+    #     send_me_reset_password_instructions: "パスワードの再設定方法を送信する"
+    # registrations:
+    #   edit:
+    #     are_you_sure: "本当に良いですか?"
+    #     cancel_my_account: "アカウント削除"
+    #     currently_waiting_confirmation_for_email: "%{email} の確認待ち"
+    #     leave_blank_if_you_don_t_want_to_change_it: "空欄のままなら変更しません"
+    #     title: "%{resource}編集"
+    #     unhappy: "気に入りません"
+    #     update: "更新"
+    #     we_need_your_current_password_to_confirm_your_changes: "変更を反映するには現在のパスワードを入力してください"
+    #   new:
+    #     sign_up: "アカウント登録"
+    # sessions:
+    #   new:
+    #     sign_in: "ログイン"
+    shared:
+      links:
+        back: "戻る"
+        didn_t_receive_confirmation_instructions: "アカウント確認のメールを受け取っていませんか?"
+        didn_t_receive_unlock_instructions: "アカウントの凍結解除方法のメールを受け取っていませんか?"
+        forgot_your_password: "パスワードを忘れましたか?"
+        sign_in: "ログイン"
+        sign_in_with_provider: "%{provider}でログイン"
+        sign_up: "アカウント登録"
+    # unlocks:
+    #   new:
+    #     resend_unlock_instructions: "アカウントの凍結解除方法を再送する"
+    # failure:
+    #   already_authenticated: すでにログインしています
+    #   inactive: アカウントが有効化されていません。メールに記載された手順にしたがって、アカウントを有効化してください
+    #   invalid: "%{authentication_keys}またはパスワードが違います"
+    #   locked: アカウントはロックされています。
+    #   last_attempt: もう一回誤るとアカウントがロックされます。
+    #   not_found_in_database: "%{authentication_keys}またはパスワードが違います。"
+    #   timeout: セッションがタイムアウトしました。もう一度ログインしてください。
+    #   unauthenticated: ログインもしくはアカウント登録してください。
+    #   unconfirmed: メールアドレスの本人確認が必要です。
