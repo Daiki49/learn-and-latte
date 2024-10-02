@@ -1,7 +1,7 @@
 <div class="sm:w-full lg:w-full mb-3">
   <div id="post-id-<%= post.id %>" class="p-3">
     <div class="bg-white rounded shadow">
-      <%= link_to post_path(post) do %>
+      <%= link_to shop_post_path(@shop, post) do %>
         <% if post.post_images.present? %>
           <%= image_tag(post.post_images.first.url, class: "object-cover rounded-t") %>
         <% end %>

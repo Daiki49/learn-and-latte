@@ -4,9 +4,10 @@ class Users::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  def new
+    session[:previous_url] = request.referrer
+    super
+  end
 
   # POST /resource/sign_in
   # def create
@@ -27,7 +28,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # サインイン後のリダイレクト先を指定する
   def after_sign_in_path_for(resource)
-    root_path
+    session.delete(:previous_url) || super
   end
   # サインアウト後のリダイレクト先を指定
   def after_sign_out_path_for(resource_or_scope)
