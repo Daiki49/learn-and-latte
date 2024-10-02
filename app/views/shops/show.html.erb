@@ -69,13 +69,13 @@
 
       <div class="border-t my-4 flex items-center justify-between">
         <div class="text-sm font-bold pt-4 pb-4">レビュー</div>
-        <%= link_to new_post_path(shop_id: @shop.id), class: "btn btn-primary bg-blue-500 text-white" do %>投稿する<% end %>
+        <%= link_to new_shop_post_path(@shop.id), class: "btn btn-primary bg-blue-500 text-white" do %>投稿する<% end %>
       </div>
 
       <div class="my-5 ">
         <% if @posts.present? %>
           <% @posts.each do |post| %>
-            <%= link_to post_path(post), class: "card" do %>
+            <%= link_to shop_post_path(@shop, post), class: "card" do %>
               <div class="border border-gray-300 p-3 mt-3">
                 <% if post.title.present? %>
                   <p class="font-bold">タイトル: <%= post.title %></p>
