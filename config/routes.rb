@@ -22,4 +22,11 @@ Rails.application.routes.draw do
       get 'map.json', to: 'shops#map', defaults: { format: 'json' }
     end
   end
+  resource :users, only: [:show] do
+    collection do
+      get 'profile', to: 'users#profile'
+      # get 'my_posts', to: 'users#my_posts'
+      # get 'bookmarks', to: 'users#bookmarks'
+    end
+  end
 end
