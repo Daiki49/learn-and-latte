@@ -65,4 +65,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # super(resource)
     root_path
   end
+
+  protected
+
+  # パスワード以外はパスワードを入力しなくても更新できるようにする
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+
+  # プロフィール更新後のリダイレクト先を変更
+  def after_update_path_for(resource)
+    users_path
+  end
 end
