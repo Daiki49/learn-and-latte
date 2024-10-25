@@ -1,14 +1,24 @@
 <header>
-  <nav class="flex items-center justify-between p-6 bg-gray-200">
-    <%= link_to '/', class: 'text-2xl font-bold text-gray-700' do %>
+  <nav class="flex items-center justify-between bg-gray-200 h-16">
+    <%= link_to '/', class: 'ml-5 text-2xl font-bold text-gray-700' do %>
       Learn&Latte
     <% end %>
     <div class="flex items-center">
-      <ul class="flex items-center space-x-4">
+      <ul class="flex items-center space-x-5 mr-5">
         <% if user_signed_in? %>
-          <li>
-            <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
-          </li>
+          <div class="flex-none">
+            <ul class="menu menu-horizontal flex items-center text-black">
+              <li>
+                <details class="relative">
+                  <summary>メニュー</summary>
+                  <ul class="bg-my_white px-1 py-2 rounded-md top-7 right-1 leading-normal w-48 z-50">
+                    <li><%= link_to 'マイページ', users_path %></li>
+                    <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </div>
         <% else %>
           <li>
             <%= link_to "新規登録", new_user_registration_path %>
