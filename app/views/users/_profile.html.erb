@@ -1,0 +1,20 @@
+<div class="flex justify-center text-black">
+  <div class="flex flex-col  w-full max-w-md bg-my_white p-8 rounded-lg shadow-lg mb-6">
+    <div class="text-center">
+      <h2>プロフィール</h2>
+    </div>
+    <div class="form-control mb-2">
+      <div class="label pb-0">ユーザーネーム</div>
+      <div class="bordered w-full py-2 px-3 border rounded">
+        <%= @user.name %>
+      </div>
+    </div>
+    <div class="form-control mb-2">
+      <div class="label pb-0">メールアドレス</div>
+      <div class="bordered w-full py-2 px-3 border rounded">
+        <%= @user.email %>
+      </div>
+    </div>
+    <%= link_to '編集', edit_user_registration_path, data: { turbo: false }, class: "inline-flex w-full items-center justify-center rounded-md bg-blue-500 p-3 mt-6 text-white duration-100 ease-in-out hover:bg-blue-600 focus:outline-none cursor-pointer" %>
+  </div>
+</div>
