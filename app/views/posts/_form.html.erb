@@ -1,0 +1,52 @@
+<%= form_with model: [@shop, @post], class: "new_post" do |f| %>
+
+  <!-- タイトル -->
+  <div class="mb-3">
+    <%= f.label :タイトル（任意）, class: "block font-bold mb-2" %>
+    <%= f.text_field :title, class: "form-input w-full border pl-2 pr-2 p-2" %>
+  </div>
+
+  <!-- 評価 TODO: 評価は星でも入力できるようにする -->
+  <div class="mb-3">
+    <%= f.label :評価（必須）, class: "block font-bold mb-2" %>
+    <%= f.select :rating, [["星1", 1], ["星2", 2], ["星3", 3], ["星4", 4], ["星5", 5]], { include_blank: "選択して下さい" }, { class: "border bg-gray-200 p-3" } %>
+  </div>
+
+  <!-- お店の雰囲気 -->
+  <div class="mb-3">
+    <%= f.label :お店の雰囲気（必須）, class: "block font-bold mb-2" %>
+    <%= f.select :quietness_level, [["星1", 1], ["星2", 2], ["星3", 3], ["星4", 4], ["星5", 5]], { include_blank: "選択して下さい（数字が小さい方が賑やか、大きい方が静か）" }, { class: "border bg-gray-200 p-3" } %>
+  </div>
+
+  <!-- 座席 -->
+  <div class="mb-3">
+    <%= f.label :座席の快適さ（勉強しやすい机・椅子であったか）（必須）, class: "block font-bold mb-2" %>
+    <%= f.select :seat_comfort_level, [["星1", 1], ["星2", 2], ["星3", 3], ["星4", 4], ["星5", 5]], {include_blank: "選択して下さい（数字が大きい方が快適）" }, { class: "border bg-gray-200 p-3" } %>
+  </div>
+
+  <!-- Wi-Fi -->
+  <div class="mb-3">
+    <%= f.label :"Wi-Fiの快適さ（必須）", class: "block font-bold mb-2" %>
+    <%= f.select :wifi_comfort_level, [["星1", 1], ["星2", 2], ["星3", 3], ["星4", 4], ["星5", 5]], {include_blank: "選択して下さい（数字が大きい方が快適）" }, { class: "border bg-gray-200 p-3" } %>
+  </div>
+
+  <!-- 電源 -->
+  <div class="mb-3">
+  <%= f.label :"電源は使えたか（必須）", class: "block font-bold mb-2" %>
+    <%= f.select :power_availability, Post.power_availabilities.keys.map { |k| [Post.human_attribute_name("power_availability.#{k}"), k] }, { include_blank: "選択して下さい" }, { class: "border bg-gray-200 p-3" } %>
+  </div>
+
+  <!-- 本文 -->
+  <div class="mb-3">
+    <%= f.label :本文（任意）, class: "block font-bold mb-2" %>
+    <%= f.text_area :body, class: "form-input w-full border p-3", rows: "10" %>
+  </div>
+
+  <!-- 画像 -->
+  <div class="mb-3">
+    <%= f.label :画像アップロード , class: "block font-bold mb-2" %>
+    <%= f.file_field :post_images, multiple: true, class: "form-control", accept: 'image/*' %>
+  </div>
+
+  <%= f.submit nil, class: "btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4" %>
+<% end %>
