@@ -1,5 +1,20 @@
 ja:
+  defaults:
+    delete_confirm: 削除しますか？
+    flash_message:
+      # updated: "%{item}を更新しました"
+      # not_updated: "%{item}を更新できませんでした"
+      # deleted: "%{item}を削除しました"
+      updated: "レビューを更新しました"
+      not_updated: "レビューを更新できませんでした"
+      deleted: "レビューを削除しました"
   posts:
     create:
       success: 投稿が完了しました。
       failure: 投稿に失敗しました。
+  header:
+    posts:
+      create:
+        title: レビュー投稿
+      edit:
+        title: レビュー編集

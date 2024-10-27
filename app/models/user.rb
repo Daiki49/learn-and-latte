@@ -18,4 +18,8 @@ class User < ApplicationRecord
       # user.avatar = auth.info.image
     end
   end
+
+  def own?(object)
+    id == object&.user_id
+  end
 end

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   root "static_pages#top"
   resources :posts, only: %i[index]
   resources :shops, only: %i[index show] do
-    resources :posts, only: %i[new create show]
+    resources :posts, only: %i[new create show edit update destroy]
     collection do
       get 'map', to: 'shops#map', as: 'map'
       get 'map.json', to: 'shops#map', defaults: { format: 'json' }
