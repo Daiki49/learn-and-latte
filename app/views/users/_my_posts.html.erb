@@ -2,17 +2,29 @@
   <div class="flex flex-col w-full max-w-md">
     <div class="flex flex-col text-center mt-10">投稿一覧</div>
     <% if @no_results %>
-      <div class="lex flex-col text-center mt-6">レビュー投稿がありません</div>
+      <div class="flex flex-col text-center m-6">レビュー投稿がありません</div>
     <% else %>
-      <div class="flex flex-col items-center mt-6">
+      <div class="flex flex-col items-center mb-6 space-y-6">
         <% @posts.each do |post| %>
-          <%= link_to shop_post_path(post.shop, post), class: "block w-full bg-my_white p-8 rounded-lg shadow-lg mb-6" do %>
-            <ul class="list-none mt-2 space-y-2">
-              <li class="flex items-center space-x-2"><%= post.shop.name %></li>
-              <li class="flex items-center space-x-2"><%= "評価 : 星 #{post.rating}" %></li>
-              <li class="flex items-center space-x-2 mt-2"><%= l post.created_at.to_date, format: :long %></li>
-            </ul>
-          <% end %>
+          <div id="post-id-<%= post.id %>" class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+            <%= link_to shop_post_path(post.shop, post), class: "block" do %>
+              <ul class="list-none mt-2 space-y-2">
+                <li class="flex items-center space-x-2 font-bold text-lg"><%= post.shop.name %></li>
+                <li class="flex items-center space-x-2"><%= "評価 : 星 #{post.rating}" %></li>
+                <li class="flex items-center space-x-2 mt-2 text-sm text-gray-600"><%= l post.created_at.to_date, format: :long %></li>
+              </ul>
+            <% end %>
+            <% if current_user.own?(post) %>
+              <div class="flex justify-end mt-3 space-x-2">
+                <%= link_to edit_shop_post_path(post.shop, post), id: "button-edit-#{post.id}", class: "btn btn-primary bg-blue-500 text-white px-4 py-2 rounded" do %>
+                  編集
+                <% end %>
+                <%= link_to shop_post_path(post.shop, post), id: "button-delete-#{post.id}", class: "btn btn-primary bg-blue-500 text-white px-4 py-2 rounded", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                  削除
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         <% end %>
       </div>
     <% end %>
