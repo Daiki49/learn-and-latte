@@ -30,6 +30,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = current_user.posts.find(params[:id])
+    session[:previous_url] = request.referer  # 前ページセッションを保存
   end
 
   def update
@@ -38,7 +39,7 @@ class PostsController < ApplicationController
       # redirect_to shop_post_path(@shop, @post), success: t('defaults.flash_message.updated', item: post.model_name.human)
       # TODO: 下記を使った形式に変更する。
       # item: post.model_name.human
-      redirect_to shop_post_path(@shop, @post), success: t('defaults.flash_message.updated')
+      redirect_to session[:previous_url], success: t('defaults.flash_message.updated') # セッション保存したページに遷移
     else
       flash.now[:danger] = t('defaults.flash_message.not_updated', item: post.model_name.human)
       render :edit, status: :unprocessable_entity
