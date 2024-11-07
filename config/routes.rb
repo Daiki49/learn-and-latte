@@ -21,7 +21,11 @@ Rails.application.routes.draw do
       get 'map', to: 'shops#map', as: 'map'
       get 'map.json', to: 'shops#map', defaults: { format: 'json' }
     end
+    collection do
+      get :bookmarks
+    end
   end
+  resources :bookmarks, only: %i[create destroy]
 
   resource :users, only: [:show] do
     collection do
