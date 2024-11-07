@@ -10,9 +10,19 @@ ja:
       deleted: "レビューを削除しました"
   posts:
     create:
-      success: 投稿が完了しました。
-      failure: 投稿に失敗しました。
+      success: レビューを投稿しました
+      failure: レビュー投稿に失敗しました
+  bookmarks:
+  shops:
+    bookmarks:
+      title: ブックマーク一覧
+      no_bookmarks: ブックマークしているお店がありません
   header:
+    login: ログイン
+    logout: ログアウト
+    bookmark_index: ブックマーク
+    mypage: マイページ
+    create_account: 新規作成
     posts:
       create:
         title: レビュー投稿

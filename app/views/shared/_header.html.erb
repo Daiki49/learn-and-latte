@@ -12,8 +12,9 @@
                 <details class="relative">
                   <summary>メニュー</summary>
                   <ul class="bg-my_white px-1 py-2 rounded-md top-7 right-1 leading-normal w-48 z-50">
-                    <li><%= link_to 'マイページ', users_path %></li>
-                    <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
+                    <li><%= link_to t('header.mypage'), users_path %></li>
+                    <li><%= link_to t('header.bookmark_index'), bookmarks_shops_path %></li>
+                    <li><%= link_to t('header.logout'), destroy_user_session_path, data: { turbo_method: :delete } %></li>
                   </ul>
                 </details>
               </li>
@@ -21,10 +22,10 @@
           </div>
         <% else %>
           <li>
-            <%= link_to "新規登録", new_user_registration_path %>
+            <%= link_to t('header.create_account'), new_user_registration_path %>
           </li>
           <li>
-            <%= link_to "ログイン", new_user_session_path %>
+            <%= link_to t('header.login'), new_user_session_path %>
           </li>
         <% end %>
       </ul>

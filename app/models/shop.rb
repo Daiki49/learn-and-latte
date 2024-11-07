@@ -1,5 +1,7 @@
 class Shop < ApplicationRecord
     has_many :posts, dependent: :destroy
+    has_many :bookmarks, dependent: :destroy
+    belongs_to :user
     def self.ransackable_attributes(auth_object = nil)
         ["name", "address"]
     end

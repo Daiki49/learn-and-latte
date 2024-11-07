@@ -33,6 +33,10 @@ class ShopsController < ApplicationController
     end
   end
 
+  def bookmarks
+    @bookmark_shops = current_user.bookmark_shops.includes(:user).order(created_at: :desc)
+  end
+
   private
 
   def set_google_maps_api_key

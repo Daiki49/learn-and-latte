@@ -2,7 +2,7 @@
   <div class="flex flex-wrap">
     <div class="w-full lg:w-1/2 lg:mx-auto">
       <div class="text-2xl font-bold my-5"><%= @shop.name %></div>
-
+      <%= render 'bookmark_buttons', { shop: @shop } %>
       <% if @shop.address.present? %>
         <div class="border-t my-4">
           <div class="mb-4">

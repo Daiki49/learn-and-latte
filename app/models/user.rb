@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[google_oauth2]
   has_many :posts, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_shops, through: :bookmarks, source: :shop
 
   # 同じuidが異なるproviderで存在することは許容するが、同じprovider内で重複することは許容しないように設定
   validates :uid, uniqueness: { scope: :provider }
@@ -21,5 +23,17 @@ class User < ApplicationRecord
 
   def own?(object)
     id == object&.user_id
+  end
+
+  def bookmark(shop)
+    bookmark_shops << shop
+  end
+
+  def unbookmark(shop)
+    bookmark_shops.destroy(shop)
+  end
+
+  def bookmark?(shop)
+    bookmark_shops.include?(shop)
   end
 end
