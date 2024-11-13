@@ -2,7 +2,15 @@
   <div class="flex flex-wrap">
     <div class="w-full lg:w-1/2 lg:mx-auto">
       <div class="text-2xl font-bold my-5"><%= @shop.name %></div>
-      <%= render 'bookmark_buttons', { shop: @shop } %>
+      <% if user_signed_in? %>
+        <div><%= render 'bookmark_buttons', { shop: @shop } %></div>
+      <% else %>
+        <%# ログインすると使える機能案内ダイアログ %>
+        <div onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
+          <i class="fa-regular fa-bookmark"></i>
+        </div>
+      <% end %>
+
       <% if @shop.address.present? %>
         <div class="border-t my-4">
           <div class="mb-4">
@@ -109,7 +117,7 @@
                 <% end %>
 
                 <!-- TODO: ボタンのUIをゴミ箱（削除）などに修正する -->
-                <% if current_user.own?(post) %>
+                <% if user_signed_in? && current_user.own?(post) %>
                   <div class='ms-auto mt-3'>
                     <%= link_to edit_shop_post_path(@shop, post), id: "button-edit-#{post.id}", class: "btn btn-primary bg-blue-500 text-white" do %>
                       編集
@@ -187,3 +195,28 @@ async function initMap() {
 initMap();
 // [END maps_add_map]
 </script>
+
+<%# ログインすると使える機能案内ダイアログ %>
+<dialog id="login_modal" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">
+            ログインして続ける
+        </h3>
+        <p class="py-4">
+            <ul>
+              <li>ログインすると使える機能</li>
+              <li>・レビュー投稿機能</li>
+              <li>・お店ブックマーク機能</li>
+              <li>・レビューいいね機能</li>
+            </ul>
+        </p>
+        <div class="modal-action">
+            <%# 戻るボタン %>
+            <%= form_with url: '#', method: :dialog do %>
+                <%= button_tag '✕', class: 'btn btn-sm btn-circle btn-ghost absolute right-2 top-2' %>
+            <% end %>
+            <%# ログインボタン %>
+            <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary bg-blue-500 text-white rounded-md" %>
+        </div>
+    </div>
+</dialog>
