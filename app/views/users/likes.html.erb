@@ -1,0 +1,18 @@
+<div class="m-6 text-center">
+    <h1>いいね一覧</h1>
+</div>
+<div class="w-5/6 mx-auto max-w-sm md:max-w-4xl">
+    <div class="mt-4 mb-28">
+        <div class="mt-6">
+            <% if @like_posts.present? %>
+                <% @like_posts.each do |likes_post| %>
+                    <%= render 'posts/post', post: likes_post %>
+                <% end %>
+            <% else %>
+                <div class="text-center">
+                    いいねした投稿はありません
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

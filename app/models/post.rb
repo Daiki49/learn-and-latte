@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   belongs_to :shop
+  has_many :likes, dependent: :destroy
   attr_accessor :post_images_cache
   mount_uploaders :post_images, PostImageUploader
 

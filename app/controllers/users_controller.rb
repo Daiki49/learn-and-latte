@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     @user = current_user
     @posts = @user.posts.includes(:user).order(created_at: :desc) # ユーザーの投稿を取得
     @no_results = @posts.empty? # 投稿がないかどうかを判断
+    # @bookmark_shops = current_user.bookmark_shops.includes(:user).order(created_at: :desc)
   end
 
   # def profile
@@ -20,4 +21,8 @@ class UsersController < ApplicationController
 
   #   render partial: 'my_posts'
   # end
+  def likes
+    @user = current_user
+    @like_posts = @user.like_posts.includes(:user).order(created_at: :desc)
+  end
 end

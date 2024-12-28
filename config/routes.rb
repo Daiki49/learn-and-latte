@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root "static_pages#top"
-  resources :posts, only: %i[index]
+
+  resources :posts, only: %i[index show]
+
   resources :shops, only: %i[index show] do
     resources :posts, only: %i[new create show edit update destroy]
     collection do
@@ -25,13 +27,14 @@ Rails.application.routes.draw do
       get :bookmarks
     end
   end
-  resources :bookmarks, only: %i[create destroy]
 
-  resource :users, only: [:show] do
+  resources :bookmarks, only: %i[create destroy]
+  resources :likes, only: %i[index create destroy]
+
+  resource :user, only: [:show] do
     collection do
       get 'profile', to: 'users#profile'
-      # get 'my_posts', to: 'users#my_posts'
-      # get 'bookmarks', to: 'users#bookmarks'
+      get 'likes', to: 'users#likes', as: :likes
     end
   end
 end
