@@ -4,4 +4,9 @@
 <div>
   <%= render 'profile' %>
   <%= render 'my_posts' %>
+  <div class="m-4 text-center">
+    <%= link_to likes_user_path, class: "btn btn-wide" do %>
+      いいね
+    <% end %>
+  </div>
 </div>

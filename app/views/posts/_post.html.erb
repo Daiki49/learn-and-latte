@@ -1,7 +1,7 @@
 <div class="sm:w-full lg:w-full mb-3">
   <div id="post-id-<%= post.id %>" class="p-3">
     <div class="bg-white rounded shadow">
-      <%= link_to shop_post_path(@shop, post) do %>
+      <%= link_to post_path(post) do %>
         <% if post.post_images.present? %>
           <%= image_tag(post.post_images.first.url, class: "object-cover rounded-t") %>
         <% end %>
@@ -28,6 +28,11 @@
             <li class="flex items-center space-x-2"><%= "Wi-fiの快適さ : 星 #{post.wifi_comfort_level}" %></li>
             <li class="flex items-center space-x-2"><%= "電源は使えたか : #{post.power_availability}" %></li>
             <li class="flex items-center space-x-2 mt-2"><%= simple_format(post.body) %></li>
+            <% if user_signed_in? %>
+              <li><%= render 'posts/like_buttons', { post: post } %></li>
+            <% else %>
+              <i class="fa-regular fa-bookmark"></i>
+            <% end %>
           <% end %>
         </ul>
       </div>

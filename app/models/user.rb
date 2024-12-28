@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_shops, through: :bookmarks, source: :shop
+  has_many :likes, dependent: :destroy
+  has_many :like_posts, through: :likes, source: :post
 
   # 同じuidが異なるproviderで存在することは許容するが、同じprovider内で重複することは許容しないように設定
   validates :uid, uniqueness: { scope: :provider }
@@ -35,5 +37,17 @@ class User < ApplicationRecord
 
   def bookmark?(shop)
     bookmark_shops.include?(shop)
+  end
+
+  def like(post)
+    like_posts << post
+  end
+
+  def unlike(post)
+    like_posts.destroy(post)
+  end
+
+  def like?(post)
+    like_posts.include?(post)
   end
 end

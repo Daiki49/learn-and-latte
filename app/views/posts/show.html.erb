@@ -29,9 +29,42 @@
                 <div class="swiper-slide"><%= image_tag image.to_s , width: "300", height: "200", class: "card-img-top img-fluid" %></div>
               <% end %>
             </div>
+            <% if user_signed_in? %>
+              <div><%= render 'like_buttons', { post: @post } %></div>
+            <% else %>
+              <%# ログインすると使える機能案内ダイアログ %>
+              <div onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
+                <i class="fa-regular fa-bookmark"></i>
+              </div>
+            <% end %>
           </div>
         </div>
       </article>
     </div>
   </div>
 </div>
+
+<%# ログインすると使える機能案内ダイアログ %>
+<dialog id="login_modal" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">
+            ログインして続ける
+        </h3>
+        <p class="py-4">
+            <ul>
+              <li>ログインすると使える機能</li>
+              <li>・レビュー投稿機能</li>
+              <li>・お店ブックマーク機能</li>
+              <li>・レビューいいね機能</li>
+            </ul>
+        </p>
+        <div class="modal-action">
+            <%# 戻るボタン %>
+            <%= form_with url: '#', method: :dialog do %>
+                <%= button_tag '✕', class: 'btn btn-sm btn-circle btn-ghost absolute right-2 top-2' %>
+            <% end %>
+            <%# ログインボタン %>
+            <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary bg-blue-500 text-white rounded-md" %>
+        </div>
+    </div>
+</dialog>
