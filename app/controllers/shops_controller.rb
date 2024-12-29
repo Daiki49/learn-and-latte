@@ -34,7 +34,8 @@ class ShopsController < ApplicationController
   end
 
   def bookmarks
-    @bookmark_shops = current_user.bookmark_shops.includes(:user).order(created_at: :desc)
+    # @bookmark_shops = current_user.bookmark_shops.includes(:user).order(created_at: :desc)
+    @bookmark_shops = current_user.bookmark_shops.order(created_at: :desc)
   end
 
   private
