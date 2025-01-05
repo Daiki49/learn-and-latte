@@ -44,9 +44,78 @@
 
   <!-- 画像 -->
   <div class="mb-3">
-    <%= f.label :画像アップロード , class: "block font-bold mb-2" %>
-    <%= f.file_field :post_images, multiple: true, class: "form-control", accept: 'image/*' %>
+    <%= f.label :画像アップロード, class: "block font-bold mb-2" %>
+    <%= f.file_field :post_images, multiple: true, class: "form-control js-file-select-preview", accept: 'image/*' %>
+    <%= f.hidden_field :post_images_cache %>
+
+    <!-- 削除された画像インデックスを保持する隠しフィールド -->
+    <%= f.hidden_field :remove_image_at, id: 'remove_image_input', value: "" %>
+
+    <% if @post.post_images.present? %>
+      <div id="preview-container" class="mt-3" style="display: flex; flex-wrap: wrap; gap: 10px;">
+
+        <% @post.post_images.each_with_index do |image, index| %>
+
+          <div id="image-<%= index %>">
+            <!-- TODO:モーダルで画像表示に変更 -->
+            <%= link_to image.url, target: "_blank", rel: "noopener" do %>
+              <%= image_tag image.thumb.url, class: "object-cover rounded-t cursor-pointer" %>
+            <% end %>
+            <button type="button" class="remove-image-btn" data-index="<%= index %>" data-review-id="<%= @post.id %>">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        <% end %>
+
+      </div>
+    <% else %>
+      <div id="preview-container" class="mt-3" style="display: flex; flex-wrap: wrap; gap: 10px;">jpg,jpeg,gif,png形式の画像が選択できます</div>
+    <% end %>
   </div>
 
   <%= f.submit nil, class: "btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4" %>
 <% end %>
+
+<script>
+    // 画像削除ボタン
+    document.addEventListener('click', function (event) {
+      const target = event.target.closest('.remove-image-btn');
+
+      if (target) {
+
+        event.preventDefault(); // デフォルトの動作を無効化
+        event.stopPropagation(); // イベントのバブリングを停止
+
+        const index = target.dataset.index;
+        const removeImageInput = document.getElementById('remove_image_input');
+
+
+        // 既に削除対象が選択されている場合は何もせずに終了
+        if (removeImageInput.value.includes(index)) {
+          return; // すでに削除された画像なら処理を終了
+        }
+
+        if (!removeImageInput) {
+          console.error('remove_image_input が見つかりません');
+          return;
+        }
+
+        // 確認のダイアログを表示
+        const confirmed = confirm('この画像を削除してもよろしいですか？');
+        if (!confirmed) {
+          return;
+        }
+
+        // 削除する画像のインデックスをインプットに追加
+        const currentValue = removeImageInput.value;
+        removeImageInput.value = currentValue ? `${currentValue},${index}` : index;
+
+        // 画像をフォームから削除（画面上からは見えなくする）
+        const imageElement = document.getElementById(`image-${index}`);
+        if (imageElement) {
+          imageElement.style.display = 'none';
+        }
+      }
+    });
+
+</script>

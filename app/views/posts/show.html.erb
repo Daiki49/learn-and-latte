@@ -24,9 +24,12 @@
                 <li class="flex items-center"><%= "電源は使えたか : #{@post.power_availability}" %></li>
               </ul>
             </div>
-            <div class="w-full md:w-3/12">
+            <div class="w-full flex flex-wrap gap-2">
               <% @post.post_images.each do |image| %>
-                <div class="swiper-slide"><%= image_tag image.to_s , width: "300", height: "200", class: "card-img-top img-fluid" %></div>
+                <!-- TODO:モーダルで画像表示に変更 -->
+                <%= link_to image.url, target: "_blank", rel: "noopener" do %>
+                  <%= image_tag image.thumb.url, class: "object-cover rounded-t cursor-pointer" %>
+                <% end %>
               <% end %>
             </div>
             <% if user_signed_in? %>
