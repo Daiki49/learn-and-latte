@@ -3,7 +3,7 @@
     <div class="bg-white rounded shadow">
       <%= link_to post_path(post) do %>
         <% if post.post_images.present? %>
-          <%= image_tag(post.post_images.first.url, class: "object-cover rounded-t") %>
+          <%= image_tag(image.thumb.url, class: "object-cover rounded-t") %>
         <% end %>
       <% end %>
       <div class="p-6">
