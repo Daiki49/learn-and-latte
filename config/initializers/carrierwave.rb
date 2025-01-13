@@ -14,5 +14,5 @@ CarrierWave.configure do |config|
       path_style: true
     }
     config.fog_attributes = {}
-
+    config.fog_public     = false
 end
