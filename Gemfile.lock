@@ -125,6 +125,7 @@ GEM
       railties (>= 6.1)
     drb (2.2.1)
     erubi (1.12.0)
+    excon (1.2.3)
     faker (3.4.1)
       i18n (>= 1.8.11, < 2)
     faraday (2.12.0)
@@ -139,6 +140,23 @@ GEM
     ffi (1.17.0-x86-linux-gnu)
     ffi (1.17.0-x86_64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
+    fog-aws (3.30.0)
+      base64 (~> 0.2.0)
+      fog-core (~> 2.6)
+      fog-json (~> 1.1)
+      fog-xml (~> 0.1)
+    fog-core (2.6.0)
+      builder
+      excon (~> 1.0)
+      formatador (>= 0.2, < 2.0)
+      mime-types
+    fog-json (1.2.0)
+      fog-core
+      multi_json (~> 1.10)
+    fog-xml (0.1.5)
+      fog-core
+      nokogiri (>= 1.5.11, < 2.0.0)
+    formatador (1.1.0)
     geocoder (1.8.3)
       base64 (>= 0.1.0)
       csv (>= 3.0.0)
@@ -193,6 +211,10 @@ GEM
     marcel (1.0.4)
     matrix (0.4.2)
     method_source (1.1.0)
+    mime-types (3.6.0)
+      logger
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2025.0107)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.23.1)
@@ -391,6 +413,7 @@ DEPENDENCIES
   devise-i18n-views
   dotenv-rails
   faker
+  fog-aws
   geocoder
   geokit-rails
   gon
