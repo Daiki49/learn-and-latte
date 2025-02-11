@@ -31,7 +31,12 @@ ja:
       confirmation_instructions:
         subject: "アカウント確認"
       reset_password_instructions:
-        subject: "パスワード再設定"
+        greeting: "こんにちは %{email}さん！"
+        instruction: "パスワードリセットの依頼を受け付けました。以下のリンクからパスワードを再設定できます。"
+        reset_password: "パスワード再設定"
+        instruction_2: "このメールに心当たりが無い場合や、パスワードを変更しない場合は何もする必要はございません。"
+        instruction_3: "パスワードの再設定は、上のリンクから新しいパスワードを登録するまで完了しません。"
+        subject: "[Learn&Latte]パスワードリセット用リンクのご連絡"
       unlock_instructions:
         subject: "アカウントのロック解除"
       email_changed:
@@ -78,16 +83,6 @@ ja:
       send_instructions: "数分以内にアカウントのロック解除方法を記載したメールが届きます"
       send_paranoid_instructions: "登録されているメールアドレスにアカウントのロック解除方法を記載したメールが届きます"
       unlocked: "アカウントのロックが解除されました。続けてログインしてください"
-    errors:
-      messages:
-        already_confirmed: "はすでに確認済みです。ログインしてください"
-        confirmation_period_expired: "%{period}以内に確認しないと無効になります。再度確認を行ってください"
-        expired: "有効期限が切れています。再度確認を行ってください"
-        not_found: "見つかりません"
-        not_locked: "はロックされていません"
-        not_saved:
-          one: "1件のエラーがあります"
-          other: "%{count}件のエラーがあります"
     omniauth_callbacks:
       user:
         success: "%{kind}でログインに成功しました。"
@@ -110,16 +105,15 @@ ja:
     #     message: "ログイン失敗が繰り返されたため、アカウントはロックされています。"
     passwords:
       edit:
-        change_my_password: "パスワードを変更する"
-        change_your_password: "パスワードを変更"
+        change_my_password: "パスワード再設定"
+        change_your_password: "パスワードを再設定"
         confirm_new_password: "確認用新しいパスワード"
         new_password: "新しいパスワード"
       new:
-        forgot_your_password: "パスワードを忘れましたか?"
-        send_me_reset_password_instructions: "パスワードの再設定方法を送信する"
+        reset_password: "パスワードリセット"
+        send_me_reset_password_instructions: "パスワードリセット用リンクを送信"
       user:
-        send_instructions: "パスワードリセットの指示をメールで送信しました。"
-      send_instructions: "パスワードリセットの指示をメールで送信しました。"
+        send_instructions: "パスワードリセット用のメールを送信しました。"
       updated: "パスワードが正常に更新されました。"
       updated_not_active: "パスワードが正常に更新されましたが、アカウントはまだ有効化されていません。"
       send_paranoid_instructions: "もしそのメールアドレスが登録されていれば、パスワードリセットの指示をメールで送信しました。"
@@ -144,7 +138,7 @@ ja:
         back: "戻る"
         didn_t_receive_confirmation_instructions: "アカウント確認のメールを受け取っていませんか?"
         didn_t_receive_unlock_instructions: "アカウントの凍結解除方法のメールを受け取っていませんか?"
-        forgot_your_password: "パスワードを忘れましたか?"
+        forgot_your_password: "パスワードを忘れた場合はこちら"
         sign_in: "ログイン"
         sign_in_with_provider: "%{provider}でログイン"
         sign_up: "アカウント登録"
@@ -161,3 +155,13 @@ ja:
     #   timeout: セッションがタイムアウトしました。もう一度ログインしてください。
     #   unauthenticated: ログインもしくはアカウント登録してください。
     #   unconfirmed: メールアドレスの本人確認が必要です。
+  errors:
+    messages:
+      already_confirmed: "はすでに確認済みです。ログインしてください"
+      confirmation_period_expired: "%{period}以内に確認しないと無効になります。再度確認を行ってください"
+      expired: "有効期限が切れています。再度確認を行ってください"
+      not_found: "見つかりません"
+      not_locked: "はロックされていません"
+      not_saved:
+        one: "1件のエラーがあります"
+        other: "%{count}件のエラーがあります"
