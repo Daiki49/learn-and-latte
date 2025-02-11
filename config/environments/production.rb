@@ -101,7 +101,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'learn-and-latte.onrender.com',
+    domain:               'gmail.com',
     user_name:            ENV['MAILER_SENDER'],
     password:             ENV['MAILER_PASSWORD'],
     authentication:       'plain',
