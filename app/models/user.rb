@@ -10,7 +10,9 @@ class User < ApplicationRecord
   has_many :like_posts, through: :likes, source: :post
 
   # 同じuidが異なるproviderで存在することは許容するが、同じprovider内で重複することは許容しないように設定
-  validates :uid, uniqueness: { scope: :provider }
+  # Googleを使った登録ではなく通常登録ではuidの一意性チェックによるバリデーションエラーを発生させないため、
+  # provider がある場合のみ uid の一意性チェックを行うように設定
+  validates :uid, uniqueness: { scope: :provider }, allow_nil: true
 
   def self.from_omniauth(auth)
     # OmniAuthによって取得されたユーザーの認証情報を持つユーザーを検索
