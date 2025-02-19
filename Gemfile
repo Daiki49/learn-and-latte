@@ -55,6 +55,9 @@ gem 'rails-i18n', '~> 7.0.0'
 gem 'carrierwave'
 gem 'fog-aws'
 
+gem 'mini_magick'
+gem 'meta-tags', require: 'meta_tags'
+
 # 環境変数管理
 gem 'gon'
 gem 'dotenv-rails'
