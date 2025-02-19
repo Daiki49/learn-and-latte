@@ -39,4 +39,6 @@ Rails.application.routes.draw do
       get 'likes', to: 'users#likes', as: :likes
     end
   end
+
+  get 'images/ogp_image.png', to: 'images#ogp', as: 'images_ogp'
 end
