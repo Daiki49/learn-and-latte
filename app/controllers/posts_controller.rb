@@ -4,9 +4,6 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
   before_action :set_shop, only: [:new, :create, :edit, :update, :destroy]
 
-  ## 設定したprepare_meta_tagsをprivateにあってもpostコントローラー以外にも使えるようにする
-  helper_method :prepare_meta_tags
-
   def index
     @q = Post.ransack(params[:q])
     @posts = @q.result(distinct: true).includes(:user).order(created_at: :desc)
@@ -29,8 +26,6 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    ## メタタグを設定する。
-    prepare_meta_tags(@post)
   end
 
   def edit
@@ -94,27 +89,6 @@ class PostsController < ApplicationController
 
   def set_shop
     @shop = Shop.find(params[:shop_id])
-  end
-
-  # 文字列を合成したOGP画像を生成
-  def prepare_meta_tags(post)
-
-    image_url = "#{request.base_url}/images/ogp_image.png?text=#{CGI.escape("「#{@post.shop.name}」\nカフェ勉強レビュー")}"
-
-    set_meta_tags og: {
-                    site_name: 'Learn&Latte',
-                    title: 'Learn&Latte',
-                    description: 'ユーザーによるカフェ勉強レビューです。',
-                    type: 'website',
-                    url: request.original_url,
-                    image: image_url,
-                    locale: 'ja-JP'
-                  },
-                  twitter: {
-                    card: 'summary_large_image',
-                    site: '',
-                    image: image_url
-                  }
   end
 
 end

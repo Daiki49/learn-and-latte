@@ -45,7 +45,7 @@
           <div class="text-gray-600">
               <% prepare_meta_tags @post %>
               <%
-                twitter_share_text = "📚☕ Learn&Latte〜勉強しやすいカフェ、すぐ探せる！〜\n\n「#{@post.shop.name}」のレビューをシェア！\n\n#LearnAndLatte ##{@post.shop.name}"
+                twitter_share_text = "【Learn&Latte〜勉強しやすいカフェ、すぐ探せる！〜】\n\n「#{@post.shop.name}」のレビューをシェア！\n\n#LearnAndLatte ##{@post.shop.name}"
                 twitter_share_url = "https://twitter.com/share?" + URI.encode_www_form(
                   url: post_url(@post),
                   text: twitter_share_text
