@@ -2,17 +2,40 @@
   <div class="flex flex-wrap">
     <div class="w-full lg:w-1/2 lg:mx-auto">
       <div class="text-2xl font-bold my-5"><%= @shop.name %></div>
-      <% if user_signed_in? %>
-        <div><%= render 'bookmark_buttons', { shop: @shop } %></div>
-      <% else %>
-        <%# ログインすると使える機能案内ダイアログ %>
-        <div onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
-          <i class="fa-regular fa-bookmark"></i>
-        </div>
-      <% end %>
+      <div class="border-t">
+        <ul class="flex justify-end w-full mt-4 mr-2">
+          <%# ブックマークボタン %>
+          <li class="mr-4">
+            <% if user_signed_in? %>
+              <div><%= render 'bookmark_buttons', { shop: @shop } %></div>
+            <% else %>
+              <%# ログインすると使える機能案内ダイアログ %>
+              <div onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
+                <i class="fa-regular fa-bookmark">ブックマーク</i>
+              </div>
+            <% end %>
+          </li>
+          <%# Xシェアボタン %>
+          <li>
+            <div class="text-gray-600">
+              <% prepare_meta_tags @shop %>
+              <%
+                twitter_share_text = "【Learn&Latte〜勉強しやすいカフェ、すぐ探せる!〜】\n\n「#{@shop.name}」をシェア！\n\n#LearnAndLatte ##{@shop.name}"
+                twitter_share_url = "https://twitter.com/share?" + URI.encode_www_form(
+                  url: shop_url(@shop),
+                  text: twitter_share_text
+                )
+              %>
+              <%= link_to twitter_share_url, target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do %>
+              <i class="fa-brands fa-square-x-twitter fa-2xl"></i>
+              <% end %>
+            </div>
+          </li>
+        </ul>
+      </div>
 
       <% if @shop.address.present? %>
-        <div class="border-t my-4">
+        <div class="mb-4">
           <div class="mb-4">
             <p class="text-sm pb-4 pt-4 font-bold">住所</p>
             <p><%= @shop.address %></p>
@@ -129,16 +152,36 @@
                     </div>
                   <% end %>
                 </div>
-
-                <div class="mt-3">
-                  <% if user_signed_in? %>
-                    <div><%= render 'posts/like_buttons', { post: post} %></div>
-                  <% else %>
-                    <%# ログインすると使える機能案内ダイアログ %>
-                    <div onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
-                      <i class="fa-regular fa-heart"></i>
-                    </div>
-                  <% end %>
+                <div>
+                  <ul class="flex justify-start items-center w-full mt-4">
+                    <%# いいねボタン %>
+                    <li class="mr-4">
+                            <% if user_signed_in? %>
+                              <div><%= render 'posts/like_buttons', { post: post} %></div>
+                            <% else %>
+                              <%# ログインすると使える機能案内ダイアログ %>
+                              <div onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
+                                <i class="fa-regular fa-heart"></i>
+                              </div>
+                            <% end %>
+                    </li>
+                    <%# Xシェアボタン %>
+                    <li>
+                      <div class="text-gray-600">
+                          <% prepare_meta_tags post %>
+                          <%
+                            twitter_share_text = "【Learn&Latte〜勉強しやすいカフェ、すぐ探せる！〜】\n\n「#{post.shop.name}」のレビューをシェア！\n\n#LearnAndLatte ##{post.shop.name}"
+                            twitter_share_url = "https://twitter.com/share?" + URI.encode_www_form(
+                              url: post_url(post),
+                              text: twitter_share_text
+                            )
+                          %>
+                          <%= link_to twitter_share_url, target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do %>
+                          <i class="fa-brands fa-square-x-twitter fa-2xl"></i>
+                          <% end %>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
 
                 <!-- TODO: ボタンのUIをゴミ箱（削除）などに修正する -->
