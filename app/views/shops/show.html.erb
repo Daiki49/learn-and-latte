@@ -165,22 +165,6 @@
                               </div>
                             <% end %>
                     </li>
-                    <%# Xシェアボタン %>
-                    <li>
-                      <div class="text-gray-600">
-                          <% prepare_meta_tags post %>
-                          <%
-                            twitter_share_text = "【Learn&Latte〜勉強しやすいカフェ、すぐ探せる！〜】\n\n「#{post.shop.name}」のレビューをシェア！\n\n#LearnAndLatte ##{post.shop.name}"
-                            twitter_share_url = "https://twitter.com/share?" + URI.encode_www_form(
-                              url: post_url(post),
-                              text: twitter_share_text
-                            )
-                          %>
-                          <%= link_to twitter_share_url, target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do %>
-                          <i class="fa-brands fa-square-x-twitter fa-2xl"></i>
-                          <% end %>
-                      </div>
-                    </li>
                   </ul>
                 </div>
 
