@@ -38,6 +38,14 @@ class ShopsController < ApplicationController
     @bookmark_shops = current_user.bookmark_shops.order(created_at: :desc)
   end
 
+  # オートコンプリート機能
+  def auto_search
+    @shops = Shop.ransack(name_or_address_cont: params[:q]).result.order(name: :asc)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
   def set_google_maps_api_key
