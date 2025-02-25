@@ -7,3 +7,8 @@
   display: flex;
   flex-flow: column;
 }
+
+/* app/assets/stylesheets/application.css または application.tailwind.css */
+ul[data-autocomplete-target="results"]:empty {
+  display: none;
+}
