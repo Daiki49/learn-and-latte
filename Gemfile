@@ -107,4 +107,5 @@ group :test do
   gem "selenium-webdriver"
   gem "faker"
   gem 'rubocop', require: false
+  gem 'rspec-rails'
 end
