@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def page_title(title = "")
+    base_title = "Learn&Latte"
+    title.present? ? "#{title} | #{base_title}" : base_title
+  end
+
   # OGP用のメタタグを設定
   def prepare_meta_tags(resource)
     if resource.is_a?(Post)
