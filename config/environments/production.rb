@@ -96,12 +96,12 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   # config.hosts << 'www.learn-and-latte.com'
 
-  config.action_mailer.default_url_options = { host: 'https://learn-and-latte.onrender.com/' }
+  config.action_mailer.default_url_options = { host: 'https://learnandlatte.jp/' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'learn-and-latte.onrender.com',
+    domain:               'learnandlatte.jp',
     user_name:            ENV['MAILER_SENDER'],
     password:             ENV['MAILER_PASSWORD'],
     authentication:       'plain',
