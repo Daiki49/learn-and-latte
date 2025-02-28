@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "static_pages#top"
 
+  get "terms_of_use", to: "static_pages#terms_of_use"
   get "privacy_policy", to: "static_pages#privacy_policy"
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?

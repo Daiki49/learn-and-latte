@@ -29,5 +29,7 @@ ja:
       edit:
         title: レビュー編集
   static_pages:
+    terms_of_use:
+      title: 利用規約
     privacy_policy:
       title: プライバシーポリシー
