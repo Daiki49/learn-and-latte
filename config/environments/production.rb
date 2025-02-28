@@ -100,7 +100,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
-    port:                 587,
+    port:                 587,p
     domain:               'learn-and-latte.onrender.com',
     user_name:            ENV['MAILER_SENDER'],
     password:             ENV['MAILER_PASSWORD'],
@@ -108,5 +108,7 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
+  config.hosts << "learnandlatte.jp"      # 独自ドメイン
+  config.hosts << "www.learnandlatte.jp"  # サブドメイン
 
 end
