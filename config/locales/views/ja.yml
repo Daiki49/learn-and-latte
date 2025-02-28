@@ -28,3 +28,6 @@ ja:
         title: レビュー投稿
       edit:
         title: レビュー編集
+  static_pages:
+    privacy_policy:
+      title: プライバシーポリシー
