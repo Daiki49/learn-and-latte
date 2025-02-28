@@ -18,17 +18,18 @@ class Shop < ApplicationRecord
                     lat_column_name: :latitude,
                     lng_column_name: :longitude
 
+    # 任意のレビュー項目もあるため`nil` や `0` を除外した投稿で平均値を算出
     def average_score_for(column)
-        unless self.posts.empty?
-            posts.average(column).round(1)
-        else
-            0.0
-        end
+        valid_posts = posts.where.not(column => [nil, 0])
+        average = valid_posts.average(column)
+        average.present? ? average.round(1) : 0.0
     end
 
+    # 任意のレビュー項目もあるため`nil` や `0` を除外した投稿で平均値をパーセンテージに変換
     def average_score_percentage_for(column)
-        unless self.posts.empty?
-            posts.average(column).round(1).to_f * 100 / 5
+        valid_posts = posts.where.not(column => [nil, 0])
+        if valid_posts.exists?
+            (valid_posts.average(column).round(1).to_f * 100 / 5).round(1)
         else
             0.0
         end
