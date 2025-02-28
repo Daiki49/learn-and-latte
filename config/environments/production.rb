@@ -108,5 +108,7 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
+  config.hosts << "learnandlatte.jp"      # 独自ドメイン
+  config.hosts << "www.learnandlatte.jp"  # サブドメイン
 
 end
