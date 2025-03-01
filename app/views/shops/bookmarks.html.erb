@@ -1,21 +1,19 @@
 <% content_for(:title, t('.title')) %>
-<div class="text-center m-6">
-  <h2><%= t('.title') %></h2>
-</div>
-<div class="container mb-6 pt-3">
-  <div class="row">
-    <div class="col-12">
-      <div class="row">
-        <% if user_signed_in? %>
-          <% if @bookmark_shops.present? %>
-            <% @bookmark_shops.each do |bookmark_shop| %>
-              <%= render 'shops/shop', shop: bookmark_shop %>
-            <% end %>
-          <% else %>
-            <p><%= t('.no_bookmarks') %></p>
+<div class="w-full max-w-4xl mx-auto pt-3">
+  <div class="text-center m-6">
+    <h2><%= t('.title') %></h2>
+  </div>
+  <div class="flex flex-wrap justify-center mb-3">
+    <div class="w-full max-w-3xl">
+      <% if user_signed_in? %>
+        <% if @bookmark_shops.present? %>
+          <% @bookmark_shops.each do |bookmark_shop| %>
+            <%= render 'shops/shop', shop: bookmark_shop %>
           <% end %>
+        <% else %>
+          <p><%= t('.no_bookmarks') %></p>
         <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
