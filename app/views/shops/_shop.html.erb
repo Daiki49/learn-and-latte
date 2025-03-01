@@ -1,20 +1,19 @@
-<div class="sm:w-full lg:w-full mb-3">
+<div class="sm:w-full lg:w-full">
   <div id="shop-id-<%= shop.id %>" class="p-3">
     <div class="bg-white rounded shadow">
-      <div class="flex items-center">
-        <ul class="list-none mt-2">
-          <li class="flex items-center space-x-2"><%= link_to "店名 : #{shop.name}", shop_path(shop) %></li>
-          <li class="flex items-center space-x-2"><%= shop.address %></li>
+      <ul class="w-full bg-white p-6 rounded-lg shadow-lg">
+        <li class="flex items-center justify-between">
+          <span class="font-bold text-lg"><%= link_to "#{shop.name}", shop_path(shop) %></span>
           <% if user_signed_in? %>
-            <li><%= render 'bookmark_buttons', { shop: shop } %></li>
+            <%= render 'bookmark_buttons', { shop: shop } %>
           <% else %>
-            <%# ログインすると使える機能案内ダイアログ %>
             <li onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
               <i class="fa-regular fa-bookmark"></i>
             </li>
           <% end %>
-        </ul>
-      </div>
+        </li>
+        <li class="mt-2 text-sm text-gray-500"><%= shop.address %></li>
+      </ul>
     </div>
   </div>
 </div>
