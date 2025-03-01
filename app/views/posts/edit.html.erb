@@ -6,63 +6,6 @@
       <h1 class="text-2xl font-bold mt-4 mb-4 text-center"><%= t('header.posts.edit.title') %></h1>
       <h1 class="text-2xl font-bold mt-4 mb-4"><%= @shop.name %></h1>
       <%= render 'form', post: @post %>
-
-<%
-=begin %>
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 offset-lg-2">
-      <h1><%= t('header.posts.edit.title') %></h1>
-      <%= render 'form', post: @post %>
-<%
-=end %>
-
-<%
-=begin %>
-      <%= form_with model: [@shop, @post], url: shop_post_path(@shop, @post) do |f| %>
-        <div class="mb-3">
-          <%= f.label :タイトル（任意）, class: "block font-bold mb-2" %>
-          <%= f.text_field :title, class: "form-input w-full border pl-2 pr-2 p-2" %>
-        </div>
-        <%= f.submit nil, class: "btn btn-primary" %>
-      <% end %>
-<%
-=end %>
-
-<%
-=begin %>
-        <%= render 'shared/error_messages', object: f.object %>
-
-        <div class="mb-3">
-          <%= f.label :title %>
-          <%= f.text_field :title, class: "form-control" %>
-        </div>
-        <div class="mb-3">
-          <%= f.label :body %>
-          <%= f.text_area :body, class: "form-control", rows: "10" %>
-        </div>
-        <div class="mb-3">
-          <%= f.label :board_image %>
-          <%= f.file_field :board_image, class: "form-control", accept: 'image/*' %>
-          <%= f.hidden_field :board_image_cache %>
-        </div>
-        <%= f.submit nil, class: "btn btn-primary" %>
-<%
-=end %>
     </div>
   </div>
 </div>
-
-<%
-=begin %>
-      <%= form_with model: [@shop, @post], class: "new_post" do |f| %>
-        <!-- タイトル -->
-        <div class="mb-3">
-          <%= f.label :タイトル（任意）, class: "block font-bold mb-2" %>
-          <%= f.text_field :title, class: "form-input w-full border pl-2 pr-2 p-2" %>
-        </div>
-        <%= f.submit "投稿", class: "btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4" %>
-      <% end %>
-    </div>
-<%
-=end %>

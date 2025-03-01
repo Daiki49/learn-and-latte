@@ -12,3 +12,23 @@
 ul[data-autocomplete-target="results"]:empty {
   display: none;
 }
+
+/* 全体の文字色をブラウンに設定 */
+body {
+  @apply text-custom-brown;
+  /* 文字色をブラウンに変更 */
+}
+
+/* カスタムカラー背景の例 */
+header {
+  @apply bg-custom-light-gray;
+  /* カスタムカラーを適用 */
+}
+
+.btn {
+  @apply transition-colors;
+}
+
+.btn:hover {
+  @apply bg-custom-hover-brown text-white;
+}

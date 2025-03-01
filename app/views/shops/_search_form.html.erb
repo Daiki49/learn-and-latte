@@ -3,7 +3,7 @@
 
     <div data-controller="autocomplete" data-autocomplete-url-value="/shops/auto_search" role="combobox" class="relative flex-grow w-full pt-1">
 
-      <%= f.search_field :name_or_address_cont, data: { autocomplete_target: 'input' }, class: 'form-input w-full border pl-2 pr-2 py-2 rounded-l-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500' ,placeholder: '検索ワード' %>
+      <%= f.search_field :name_or_address_cont, data: { autocomplete_target: 'input' }, class: 'form-input w-full border pl-2 pr-2 py-2 rounded-l-md shadow-sm focus:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-200' ,placeholder: '検索ワード' %>
       <input type="hidden" name="shop_id" data-autocomplete-target="hidden"/>
       <%= f.hidden_field :name, data: { autocomplete_target: 'hidden' } %>
       <%# オートコンプリートのリストが表示される %>
@@ -12,7 +12,7 @@
     </div>
 
     <div class="ml-2">
-      <%= f.submit class: 'btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md w-full sm:w-auto' %>
+      <%= f.submit class: 'btn btn-primary text-white font-bold py-2 px-4 rounded-r-md w-full sm:w-auto' %>
     </div>
 
   </div>
