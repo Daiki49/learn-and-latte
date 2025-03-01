@@ -140,7 +140,8 @@ function showCurrentLocation(){
     currentLocationMarker = new google.maps.Marker({
       map: map,
       position: map.getCenter(), // 初期位置をマップの中心に設定
-      title: "現在地"
+      title: "現在地",
+      zIndex: 9999 // カフェのマーカーと重なったときに現在地のマーカーが一番前面に表示するように設定
     });
   }
 
@@ -187,6 +188,10 @@ function showCurrentLocation(){
         position: { lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude) },
         map: map,
         title: shop.name,
+        icon: {
+          url: "<%= asset_path('cafe_marker.png') %>", //カフェアイコン
+          scaledSize: new google.maps.Size(50, 50) //サイズ
+        }
       });
 
       const infoWindow = new google.maps.InfoWindow({
