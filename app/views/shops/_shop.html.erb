@@ -3,7 +3,7 @@
     <div class="bg-white rounded shadow">
       <ul class="w-full bg-white p-6 rounded-lg shadow-lg">
         <li class="flex items-center justify-between">
-          <span class="font-bold text-lg"><%= link_to "#{shop.name}", shop_path(shop) %></span>
+          <span class="font-bold text-lg hover:text-yellow-500"><%= link_to "#{shop.name}", shop_path(shop) %></span>
           <% if user_signed_in? %>
             <%= render 'bookmark_buttons', { shop: shop } %>
           <% else %>
