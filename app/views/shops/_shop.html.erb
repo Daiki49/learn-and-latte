@@ -1,20 +1,22 @@
-<div class="sm:w-full lg:w-full mb-3">
+<div class="sm:w-full lg:w-full">
   <div id="shop-id-<%= shop.id %>" class="p-3">
     <div class="bg-white rounded shadow">
-      <div class="flex items-center">
-        <ul class="list-none mt-2">
-          <li class="flex items-center space-x-2"><%= link_to "店名 : #{shop.name}", shop_path(shop) %></li>
-          <li class="flex items-center space-x-2"><%= shop.address %></li>
-          <% if user_signed_in? %>
-            <li><%= render 'bookmark_buttons', { shop: shop } %></li>
-          <% else %>
-            <%# ログインすると使える機能案内ダイアログ %>
-            <li onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
-              <i class="fa-regular fa-bookmark"></i>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+      <ul class="w-full bg-white p-6 rounded-lg shadow-lg">
+        <li class="flex items-center justify-between">
+          <span class="font-bold text-lg hover:text-yellow-500"><%= link_to "#{shop.name}", shop_path(shop) %></span>
+          <span>
+            <% if user_signed_in? %>
+              <%= render 'bookmark_buttons', { shop: shop } %>
+            <% else %>
+              <span onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
+                <i class="fa-regular fa-bookmark  hover:text-yellow-500"></i>
+                <span class="text-sm text-gray-500  hover:text-yellow-500">保存</span>
+              </span>
+            <% end %>
+          </span>
+        </li>
+        <li class="mt-2 text-sm text-gray-500"><%= shop.address %></li>
+      </ul>
     </div>
   </div>
 </div>
@@ -39,7 +41,7 @@
                 <%= button_tag '✕', class: 'btn btn-sm btn-circle btn-ghost absolute right-2 top-2' %>
             <% end %>
             <%# ログインボタン %>
-            <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary bg-blue-500 text-white rounded-md" %>
+            <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary hover:bg-custom-hover-brown text-white rounded-md" %>
         </div>
     </div>
 </dialog>

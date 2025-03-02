@@ -29,12 +29,12 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field mb-3">
         <%= f.label :email%>
-        <%= f.email_field :email, autofocus: true, class: "w-full rounded-md border border-gray-300 py-2 px-3 placeholder:text-gray-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-100" %>
+        <%= f.email_field :email, autofocus: true, class: "w-full rounded-md border border-gray-300 py-2 px-3 placeholder:text-gray-300 focus:border-gray-500 focus:outline-none focus:ring focus:ring-gray-200" %>
       </div>
 
       <div class="field mb-3">
         <%= f.label :password %>
-        <%= f.password_field :password, class: "w-full rounded-md border border-gray-300 py-2 px-3 placeholder:text-gray-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-100"%>
+        <%= f.password_field :password, class: "w-full rounded-md border border-gray-300 py-2 px-3 placeholder:text-gray-300 focus:border-gray-500 focus:outline-none focus:ring focus:ring-gray-200"%>
       </div>
 
       <% if devise_mapping.rememberable? %>
@@ -45,7 +45,7 @@
       <% end %>
 
       <div class="actions">
-        <%= f.submit t('devise.sessions.new.sign_in') , class: "inline-flex w-full items-center justify-center rounded-md bg-blue-500 p-3 text-white duration-100 ease-in-out hover:bg-blue-600 focus:outline-none cursor-pointer" %>
+        <%= f.submit t('devise.sessions.new.sign_in') , class: "inline-flex w-full items-center justify-center rounded-md bg-custom-brown hover:bg-custom-hover-brown p-3 text-white duration-100 ease-in-out hover:bg-blue-600 focus:outline-none cursor-pointer" %>
       </div>
     <% end %>
   </div>

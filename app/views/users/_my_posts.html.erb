@@ -1,26 +1,29 @@
-<div class="flex justify-center text-black">
-  <div class="flex flex-col w-full max-w-md">
-    <div class="flex flex-col text-center mt-10">投稿一覧</div>
+<div class="flex justify-center text-black ">
+  <div class="flex flex-col">
     <% if @no_results %>
       <div class="flex flex-col text-center m-6">レビュー投稿がありません</div>
     <% else %>
       <div class="flex flex-col items-center mb-6 space-y-6">
         <% @posts.each do |post| %>
-          <div id="post-id-<%= post.id %>" class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+          <div id="post-id-<%= post.id %>" class="w-full max-w-2xl bg-white p-8 rounded-lg shadow-lg">
             <%= link_to shop_post_path(post.shop, post), class: "block" do %>
               <ul class="list-none mt-2 space-y-2">
-                <li class="flex items-center space-x-2 font-bold text-lg"><%= post.shop.name %></li>
+                <li class="flex items-center space-x-2 font-bold text-lg hover:text-yellow-500 "><%= post.shop.name %></li>
                 <li class="flex items-center space-x-2"><%= "評価 : 星 #{post.rating}" %></li>
                 <li class="flex items-center space-x-2 mt-2 text-sm text-gray-600"><%= l post.created_at.to_date, format: :long %></li>
               </ul>
             <% end %>
             <% if current_user.own?(post) %>
               <div class="flex justify-end mt-3 space-x-2">
-                <%= link_to edit_shop_post_path(post.shop, post), id: "button-edit-#{post.id}", class: "btn btn-primary bg-blue-500 text-white px-4 py-2 rounded" do %>
-                  編集
+                <%= link_to edit_shop_post_path(post.shop, post), id: "button-edit-#{post.id}", class: "mr-4" do %>
+                  <i class="fa-solid fa-pen-to-square hover:text-yellow-500">
+                    <span class="text-sm text-gray-500 hover:text-yellow-500">編集</span>
+                  </i>
                 <% end %>
-                <%= link_to shop_post_path(post.shop, post), id: "button-delete-#{post.id}", class: "btn btn-primary bg-blue-500 text-white px-4 py-2 rounded", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
-                  削除
+                <%= link_to shop_post_path(post.shop, post), id: "button-delete-#{post.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                  <i class="fa-solid fa-trash hover:text-yellow-500">
+                    <span class="text-sm text-gray-500 hover:text-yellow-500">削除</span>
+                  </i>
                 <% end %>
               </div>
             <% end %>

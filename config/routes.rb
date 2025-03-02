@@ -20,8 +20,8 @@ Rails.application.routes.draw do
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
-  resources :posts, only: %i[index show]
-
+  resources :posts, only: %i[index show edit update destroy] do
+  end
   resources :shops, only: %i[index show] do
     resources :posts, only: %i[new create show edit update destroy]
     collection do
@@ -37,12 +37,7 @@ Rails.application.routes.draw do
   resources :bookmarks, only: %i[create destroy]
   resources :likes, only: %i[index create destroy]
 
-  resource :user, only: [:show] do
-    collection do
-      get 'profile', to: 'users#profile'
-      get 'likes', to: 'users#likes', as: :likes
-    end
-  end
+  resource :user, only: [:show]
 
   get 'images/ogp_image.png', to: 'images#ogp', as: 'images_ogp'
 end

@@ -3,7 +3,7 @@
   <!-- タイトル -->
   <div class="mb-3">
     <%= f.label :タイトル, class: "block font-bold mb-2" %>
-    <%= f.text_field :title, class: "form-input w-full border pl-2 pr-2 p-2" %>
+    <%= f.text_field :title, class: "focus:border-gray-500 focus:outline-none focus:ring focus:ring-gray-200 form-input w-full border pl-2 pr-2 p-2" %>
   </div>
 
   <!-- 評価 TODO: 評価は星でも入力できるようにする -->
@@ -39,7 +39,7 @@
   <!-- 本文 -->
   <div class="mb-3">
     <%= f.label :本文, class: "block font-bold mb-2" %>
-    <%= f.text_area :body, class: "form-input w-full border p-3", rows: "10" %>
+    <%= f.text_area :body, class: "focus:border-gray-500 focus:outline-none focus:ring focus:ring-gray-200 form-input w-full border p-3", rows: "10" %>
   </div>
 
   <!-- 画像 -->
@@ -73,7 +73,7 @@
     <% end %>
   </div>
 
-  <%= f.submit nil, class: "btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4" %>
+  <%= f.submit nil, class: "btn btn-primary hover:bg-custom-hover-brown text-white font-bold py-2 px-4 rounded mb-4" %>
 <% end %>
 
 <script>
