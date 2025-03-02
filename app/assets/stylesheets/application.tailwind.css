@@ -32,3 +32,8 @@ header {
 .btn:hover {
   @apply bg-custom-hover-brown text-white;
 }
+
+.mask-star[aria-current="true"] {
+  background-color: gold;
+  /* 評価された星の色 */
+}

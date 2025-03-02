@@ -18,10 +18,18 @@
         <ul class="list-none mt-2 space-y-2 hover:text-yellow-500">
           <%= link_to post_path(post) do %>
             <li class="flex items-center space-x-2 font-bold"><%= "#{post.title}" %></li>
-            <li class="flex items-center space-x-2"><%= "評価 : 星 #{post.rating}" %></li>
-            <li class="flex items-center space-x-2"><%= "お店の雰囲気 : 星 #{post.quietness_level}" %></li>
-            <li class="flex items-center space-x-2"><%= "座席の快適さ : 星 #{post.seat_comfort_level}" %></li>
-            <li class="flex items-center space-x-2"><%= "Wi-fiの快適さ : 星 #{post.wifi_comfort_level}" %></li>
+            <li class="flex items-center space-x-2"><%= "評価 : #{post.rating}" %>
+              <%= render 'shared/rating', rating: post.rating %>
+            </li>
+            <li class="flex items-center space-x-2"><%= "お店の雰囲気 : #{post.quietness_level}" %>
+              <%= render 'shared/rating', rating: post.quietness_level %>
+            </li>
+            <li class="flex items-center space-x-2"><%= "座席の快適さ : #{post.seat_comfort_level}" %>
+              <%= render 'shared/rating', rating: post.seat_comfort_level %>
+            </li>
+            <li class="flex items-center space-x-2"><%= "Wi-fiの快適さ : #{post.wifi_comfort_level}" %>
+              <%= render 'shared/rating', rating: post.wifi_comfort_level %>
+            </li>
             <li class="flex items-center space-x-2"><%= "電源は使えたか : #{post.power_availability}" %></li>
             <li class="flex items-center space-x-2 mt-2"><%= simple_format(post.body) %></li>
             <% if post.post_images.present? %>

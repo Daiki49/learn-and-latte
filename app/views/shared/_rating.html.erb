@@ -1,0 +1,5 @@
+<div class="rating">
+  <% (1..5).each do |star| %>
+    <i class="fa-solid fa-star <%= 'text-yellow-500' if star <= rating %> <%= 'text-gray-300' if star > rating %>"></i>
+  <% end %>
+</div>
