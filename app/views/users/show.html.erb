@@ -1,12 +1,71 @@
 <div class="m-6 text-center">
   <h1>マイページ</h1>
 </div>
-<div>
-  <%= render 'profile' %>
-  <%= render 'my_posts' %>
-  <div class="m-4 text-center">
-    <%= link_to likes_user_path, class: "btn btn-wide" do %>
-      いいね
-    <% end %>
+
+<div class="w-full max-w-4xl mx-auto">
+  <div class="bg-white rounded shadow my-6">
+    <nav class="grid grid-cols-3 gap-4">
+      <!-- Tab Buttons -->
+      <label for="tab3" id="label-tab3" class="py-4 px-6 block focus:outline-none cursor-pointer text-center">
+          プロフィール
+      </label>
+      <label for="tab4" id="label-tab4" class="py-4 px-6 block focus:outline-none cursor-pointer text-center">
+          レビュー投稿一覧
+      </label>
+      <label for="tab5" id="label-tab5" class="py-4 px-6 block focus:outline-none cursor-pointer text-center">
+          いいね一覧
+      </label>
+    </nav>
+
+    <div role="tablist" class="tabs tabs-bordered w-full border border-gray-200 rounded-lg">
+      <!-- Store Info Tab (Tab 1) -->
+      <input type="radio" id="tab3" name="my_tabs_2" role="tab" class="tab hidden" checked />
+      <div role="tabpanel" class="tab-content rounded-b-lg p-6 shadow-xl border-b border-gray-300">
+          <%= render 'profile' %>
+      </div>
+
+      <!-- Tab 2 -->
+      <input type="radio" id="tab4" name="my_tabs_2" role="tab" class="tab hidden" />
+      <div role="tabpanel" class="tab-content rounded-b-lg p-6 shadow-xl border-b border-gray-300">
+        <%= render 'my_posts' %>
+      </div>
+
+      <!-- Store Info Tab (Tab 3) -->
+      <input type="radio" id="tab5" name="my_tabs_2" role="tab" class="tab hidden" />
+      <div role="tabpanel" class="tab-content rounded-b-lg p-6 shadow-xl border-b border-gray-300">
+        <div class="m-4 text-center">
+          <%= render 'likes' %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+  // タブのラベルをクリックしたときに強調表示
+  document.getElementById('label-tab3').addEventListener('click', function() {
+    this.classList.add('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+    document.getElementById('label-tab4').classList.remove('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+    document.getElementById('label-tab5').classList.remove('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+  });
+
+  document.getElementById('label-tab4').addEventListener('click', function() {
+    this.classList.add('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+    document.getElementById('label-tab3').classList.remove('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+    document.getElementById('label-tab5').classList.remove('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+  });
+
+  document.getElementById('label-tab5').addEventListener('click', function() {
+    this.classList.add('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+    document.getElementById('label-tab3').classList.remove('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+    document.getElementById('label-tab4').classList.remove('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+  });
+
+  // ページロード時に初期選択状態を強調表示
+  document.addEventListener('turbo:load', function() {
+    const tab3Label = document.getElementById('label-tab3');
+    if (tab3Label) {
+      tab3Label.classList.add('text-gray-500', 'border-b-2', 'border-gray-500', 'font-bold');
+    }
+  });
+</script>
