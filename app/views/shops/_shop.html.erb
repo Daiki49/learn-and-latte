@@ -4,13 +4,16 @@
       <ul class="w-full bg-white p-6 rounded-lg shadow-lg">
         <li class="flex items-center justify-between">
           <span class="font-bold text-lg hover:text-yellow-500"><%= link_to "#{shop.name}", shop_path(shop) %></span>
-          <% if user_signed_in? %>
-            <%= render 'bookmark_buttons', { shop: shop } %>
-          <% else %>
-            <li onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
-              <i class="fa-regular fa-bookmark"></i>
-            </li>
-          <% end %>
+          <span>
+            <% if user_signed_in? %>
+              <%= render 'bookmark_buttons', { shop: shop } %>
+            <% else %>
+              <span onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
+                <i class="fa-regular fa-bookmark  hover:text-yellow-500"></i>
+                <span class="text-sm text-gray-500  hover:text-yellow-500">保存</span>
+              </span>
+            <% end %>
+          </span>
         </li>
         <li class="mt-2 text-sm text-gray-500"><%= shop.address %></li>
       </ul>

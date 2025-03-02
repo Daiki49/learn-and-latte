@@ -4,19 +4,20 @@
       <div class="p-6">
         <div class="flex items-center">
           <ul class="list-none">
-            <li class="flex items-center space-x-2"><h4 class="text-lg font-semibold flex-grow"><%= link_to post.title, post_path(post) %></h4></li>
-            <li class="flex items-center space-x-2"><i class="bi bi-person"></i><%= "by #{post.user.name}" %></li>
-            <li class="flex items-center space-x-2 mb-2"><i class="bi bi-calendar"></i><%= l post.created_at.to_date, format: :long %></li>
+            <li class="flex space-x-2 mb-3"><h4 class="text-left font-bold flex-grow text-2xl hover:text-yellow-500"><%= link_to "#{post.shop.name}", shop_path(post.shop) %></h4></li>
+            <li class="flex items-center">
+              <ul class="flex space-x-2">
+                <li><%= "#{post.user.name}" %></li>
+                <li><%= l post.created_at.to_date, format: :long %></li>
+              </ul>
+            </li>
           </ul>
         </div>
-        <div class="flex items-center">
-          <ul class="list-none mt-2">
-            <li class="flex items-center space-x-2 "><%= link_to "店名 : #{post.shop.name}", shop_path(post.shop) %></li>
-            <li class="flex items-center space-x-2"><%= post.shop.address %></li>
-          </ul>
-        </div>
-        <ul class="list-none mt-2 space-y-2">
+
+        <div class="border-t my-3"></div>
+        <ul class="list-none mt-2 space-y-2 hover:text-yellow-500">
           <%= link_to post_path(post) do %>
+            <li class="flex items-center space-x-2 font-bold"><%= "#{post.title}" %></li>
             <li class="flex items-center space-x-2"><%= "評価 : 星 #{post.rating}" %></li>
             <li class="flex items-center space-x-2"><%= "お店の雰囲気 : 星 #{post.quietness_level}" %></li>
             <li class="flex items-center space-x-2"><%= "座席の快適さ : 星 #{post.seat_comfort_level}" %></li>
@@ -33,13 +34,18 @@
                 <% end %>
               </div>
             <% end %>
-            <% if user_signed_in? %>
-              <li><%= render 'posts/like_buttons', { post: post } %></li>
-            <% else %>
-              <i class="fa-regular fa-bookmark"></i>
-            <% end %>
           <% end %>
         </ul>
+        <div class="flex justify-end mr-3">
+          <% if user_signed_in? %>
+            <%= render 'posts/like_buttons', { post: post } %>
+          <% else %>
+            <div class="flex items-center">
+              <i class="fa-regular fa-heart hover:text-yellow-500"></i>
+              <span class="text-sm text-gray-500 hover:text-yellow-500">いいね</span>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

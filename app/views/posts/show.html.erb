@@ -1,21 +1,27 @@
 <div class="container mx-auto p-3">
   <div class="flex flex-wrap">
     <div class="w-full lg:w-1/2 lg:mx-auto">
-      <h1 class="text-3xl mb-3">レビュー詳細</h1>
+
+      <div class="flex items-center justify-between">
+        <span class="flex-1 text-2xl font-bold my-5 hover:text-yellow-500 ">
+          <%= link_to "#{@post.shop.name}", shop_path(@post.shop) %>
+        </span>
+      </div>
+      <div class="border-t mb-5"></div>
+
       <article class="card border">
         <div class="card-body">
           <div class="flex flex-wrap wrap-vertical-alignment">
-            <h3 class="text-2xl inline-block"><%= @post.title %></h3>
             <div class="w-full">
-              <ul class="list-none mt-4 mb-4 space-y-2">
+              <ul class="list-none mb-4 space-y-2">
                 <li class="flex items-center">
                   <ul class="flex space-x-2">
-                    <li><%= "by #{@post.user.name}" %></li>
+                    <li><%= "#{@post.user.name}" %></li>
                     <li><%= l @post.created_at.to_date, format: :long %></li>
                   </ul>
                 </li>
-                <li class="flex items-center"><%= "店名 : #{@post.shop.name}" %></li>
-                <li class="flex items-center"><%= @post.shop.address %></li>
+                <div class="border-t"></div>
+                <li class="flex items-center "><strong><%= @post.title %></strong></li>
                 <li class="flex items-center"><%= simple_format(@post.body) %></li>
                 <li class="flex items-center"><%= "評価 : 星 #{@post.rating}" %></li>
                 <li class="flex items-center"><%= "お店の雰囲気 : 星 #{@post.quietness_level}" %></li>
@@ -24,26 +30,22 @@
                 <li class="flex items-center"><%= "電源は使えたか : #{@post.power_availability}" %></li>
               </ul>
             </div>
-            <div class="w-full flex flex-wrap gap-2">
-              <% @post.post_images.each do |image| %>
-                <!-- TODO:モーダルで画像表示に変更 -->
-                <%= link_to image.url, target: "_blank", rel: "noopener" do %>
-                  <%= image_tag image.thumb.url, class: "object-cover rounded-t cursor-pointer" %>
+
+            <div class="flex justify-end w-full m-2 items-center">
+              <div class="w-full flex flex-wrap gap-2">
+                <% @post.post_images.each do |image| %>
+                  <!-- TODO:モーダルで画像表示に変更 -->
+                  <%= link_to image.url, target: "_blank", rel: "noopener" do %>
+                    <%= image_tag image.thumb.url, class: "object-cover rounded-t cursor-pointer" %>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </div>
-            <% if user_signed_in? %>
-              <div><%= render 'like_buttons', { post: @post } %></div>
-            <% else %>
-              <%# ログインすると使える機能案内ダイアログ %>
-              <div onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
-                <i class="fa-regular fa-bookmark"></i>
               </div>
-            <% end %>
+            </div>
           </div>
 
-          <div class="text-gray-600">
-              <% prepare_meta_tags @post %>
+
+          <div class="flex justify-end">
+            <% prepare_meta_tags @post %>
               <%
                 twitter_share_text = "【Learn&Latte〜勉強しやすいカフェ、すぐ探せる！〜】\n\n「#{@post.shop.name}」のレビューをシェア！\n\n#LearnAndLatte ##{@post.shop.name}"
                 twitter_share_url = "https://twitter.com/share?" + URI.encode_www_form(
@@ -52,8 +54,39 @@
                 )
               %>
               <%= link_to twitter_share_url, target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do %>
-              <i class="fa-brands fa-square-x-twitter fa-2xl"></i>
+                <i class="fa-brands fa-square-x-twitter fa-xl hover:text-yellow-500 mr-3">
+                  <span class="text-sm text-gray-500 hover:text-yellow-500">シェア</span>
+                </i>
+            <% end %>
+            <% if user_signed_in? %>
+              <div><%= render 'like_buttons', { post: @post } %></div>
+            <% else %>
+              <%# ログインすると使える機能案内ダイアログ %>
+              <div onclick="document.getElementById('login_modal').showModal(); document.getElementById('login-button').focus();" style="cursor: pointer;">
+                <i class="fa-regular fa-heart hover:text-yellow-500">
+                  <span class="text-sm text-gray-500 hover:text-yellow-500">いいね</span>
+                </i>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="flex justify-end">
+            <ul class="flex justify-start items-center w-full">
+              <% if user_signed_in? && current_user.own?(@post) %>
+                <div class='ms-auto mt-3'>
+                  <%= link_to edit_post_path(@post), id: "button-edit-#{@post.id}" do %>
+                    <i class="fa-solid fa-pen-to-square hover:text-yellow-500 mr-3">
+                      <span class="text-sm text-gray-500 hover:text-yellow-500">編集</span>
+                    </i>
+                  <% end %>
+                  <%= link_to post_path(@post), id: "button-delete-#{@post.id}", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+                    <i class="fa-solid fa-trash hover:text-yellow-500">
+                      <span class="text-sm text-gray-500">削除</span>
+                    </i>
+                  <% end %>
+                </div>
               <% end %>
+            </ul>
           </div>
         </div>
       </article>
