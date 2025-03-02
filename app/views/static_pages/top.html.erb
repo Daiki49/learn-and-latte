@@ -3,8 +3,8 @@
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 lg:mx-auto">
         <div class="flex flex-wrap mt-3 mb-3 px-4">
-          <button class="btn btn-primary hover:bg-custom-hover-brown text-white mr-5 mb-3">
-            <%= link_to "マップ検索", map_shops_path %>
+          <button id="search-nearby-shops" class="btn btn-primary hover:bg-custom-hover-brown text-white mr-5 mb-3">
+            マップ検索
           </button>
           <div class="flex-grow">
             <%= render 'shops/search_form', q: @q, url: shops_path %>
