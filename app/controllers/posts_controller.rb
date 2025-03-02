@@ -10,7 +10,8 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    # @post = Post.new
+    @post = Post.new(rating: 3, quietness_level: 3, seat_comfort_level: 3, wifi_comfort_level:3)  # 初期値として3を設定
   end
 
   def create

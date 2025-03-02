@@ -7,27 +7,53 @@
   </div>
 
   <!-- 評価 TODO: 評価は星でも入力できるようにする -->
+  <!-- 評価 -->
   <div class="mb-3">
-    <%= f.label :評価（必須）, class: "block font-bold mb-2" %>
-    <%= f.select :rating, [["星1", 1], ["星2", 2], ["星3", 3], ["星4", 4], ["星5", 5]], { include_blank: "選択して下さい" }, { class: "border bg-gray-200 p-3" } %>
+    <%= f.label :評価, class: "block font-bold mb-2" %>
+    <div class="rating">
+      <%= f.radio_button :rating, 1, class: "mask mask-star bg-primary", id: "rating-star-1", checked: f.object.rating == 1 %>
+      <%= f.radio_button :rating, 2, class: "mask mask-star bg-primary", id: "rating-star-2", checked: f.object.rating == 2 %>
+      <%= f.radio_button :rating, 3, class: "mask mask-star bg-primary", id: "rating-star-3", checked: f.object.rating == 3 %>
+      <%= f.radio_button :rating, 4, class: "mask mask-star bg-primary", id: "rating-star-4", checked: f.object.rating == 4 %>
+      <%= f.radio_button :rating, 5, class: "mask mask-star bg-primary", id: "rating-star-5", checked: f.object.rating == 5 %>
+    </div>
   </div>
 
   <!-- お店の雰囲気 -->
   <div class="mb-3">
-    <%= f.label :お店の雰囲気, class: "block font-bold mb-2" %>
-    <%= f.select :quietness_level, [["星1", 1], ["星2", 2], ["星3", 3], ["星4", 4], ["星5", 5]], { include_blank: "選択して下さい（数字が小さい方が賑やか、大きい方が静か）" }, { class: "border bg-gray-200 p-3" } %>
+    <%= f.label :お店の雰囲気（数字が小さい方が賑やか、大きい方が静か）, class: "block font-bold mb-2" %>
+    <div class="rating">
+      <%= f.radio_button :quietness_level, 1, class: "mask mask-star bg-primary", id: "quietness-star-1", checked: f.object.quietness_level == 1 %>
+      <%= f.radio_button :quietness_level, 2, class: "mask mask-star bg-primary", id: "quietness-star-2", checked: f.object.quietness_level == 2 %>
+      <%= f.radio_button :quietness_level, 3, class: "mask mask-star bg-primary", id: "quietness-star-3", checked: f.object.quietness_level == 3 %>
+      <%= f.radio_button :quietness_level, 4, class: "mask mask-star bg-primary", id: "quietness-star-4", checked: f.object.quietness_level == 4 %>
+      <%= f.radio_button :quietness_level, 5, class: "mask mask-star bg-primary", id: "quietness-star-5", checked: f.object.quietness_level == 5 %>
+    </div>
   </div>
 
   <!-- 座席 -->
   <div class="mb-3">
     <%= f.label :座席の快適さ（勉強しやすい机・椅子であったか）, class: "block font-bold mb-2" %>
-    <%= f.select :seat_comfort_level, [["星1", 1], ["星2", 2], ["星3", 3], ["星4", 4], ["星5", 5]], {include_blank: "選択して下さい（数字が大きい方が快適）" }, { class: "border bg-gray-200 p-3" } %>
+
+    <div class="rating">
+      <%= f.radio_button :seat_comfort_level, 1, class: "mask mask-star bg-primary", id: "rating-star-1", checked: f.object.seat_comfort_level == 1 %>
+      <%= f.radio_button :seat_comfort_level, 2, class: "mask mask-star bg-primary", id: "rating-star-2", checked: f.object.seat_comfort_level == 2 %>
+      <%= f.radio_button :seat_comfort_level, 3, class: "mask mask-star bg-primary", id: "rating-star-3", checked: f.object.seat_comfort_level == 3 %>
+      <%= f.radio_button :seat_comfort_level, 4, class: "mask mask-star bg-primary", id: "rating-star-4", checked: f.object.seat_comfort_level == 4 %>
+      <%= f.radio_button :seat_comfort_level, 5, class: "mask mask-star bg-primary", id: "rating-star-5", checked: f.object.seat_comfort_level == 5 %>
+    </div>
   </div>
 
   <!-- Wi-Fi -->
   <div class="mb-3">
     <%= f.label :"Wi-Fiの快適さ", class: "block font-bold mb-2" %>
-    <%= f.select :wifi_comfort_level, [["星1", 1], ["星2", 2], ["星3", 3], ["星4", 4], ["星5", 5]], {include_blank: "選択して下さい（数字が大きい方が快適）" }, { class: "border bg-gray-200 p-3" } %>
+    <div class="rating">
+      <%= f.radio_button :wifi_comfort_level, 1, class: "mask mask-star bg-primary", id: "quietness-star-1", checked: f.object.wifi_comfort_level == 1 %>
+      <%= f.radio_button :wifi_comfort_level, 2, class: "mask mask-star bg-primary", id: "quietness-star-2", checked: f.object.wifi_comfort_level == 2 %>
+      <%= f.radio_button :wifi_comfort_level, 3, class: "mask mask-star bg-primary", id: "quietness-star-3", checked: f.object.wifi_comfort_level == 3 %>
+      <%= f.radio_button :wifi_comfort_level, 4, class: "mask mask-star bg-primary", id: "quietness-star-4", checked: f.object.wifi_comfort_level == 4 %>
+      <%= f.radio_button :wifi_comfort_level, 5, class: "mask mask-star bg-primary", id: "quietness-star-5", checked: f.object.wifi_comfort_level == 5 %>
+    </div>
   </div>
 
   <!-- 電源 -->
