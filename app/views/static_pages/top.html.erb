@@ -3,9 +3,9 @@
     <div class="flex flex-wrap">
       <div class="w-full lg:w-1/2 lg:mx-auto">
         <div class="flex flex-wrap mt-3 mb-3 px-4">
-          <button id="search-nearby-shops" class="btn btn-primary hover:bg-custom-hover-brown text-white mr-5 mb-3">
-            マップ検索
-          </button>
+          <%= link_to map_shops_path, data: { turbo: false }, class: "btn btn-primary hover:bg-custom-hover-brown text-white mr-5 mb-3" do %>
+              マップ検索
+          <% end %>
           <div class="flex-grow">
             <%= render 'shops/search_form', q: @q, url: shops_path %>
           </div>
@@ -16,53 +16,3 @@
   </div>
 </div>
 
-<script type="text/javascript">
-  class CurrentLocations {
-
-    static getCurrentLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.successGetPosition.bind(this), this.failGetPosition.bind(this), this.options);
-      } else {
-        const message = 'ご使用中のブラウザは現在地検索に対応されておりません。';
-        // Alert.set('warning', message);
-        this.redirectToDefaultLocation();
-      }
-    }
-
-    static successGetPosition(position) {
-      window.location.href = `/shops/map?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`;
-    }
-
-    static options = {
-      enableHighAccuracy: true
-    };
-
-    static failGetPosition(error) {
-      let message;
-      switch (error.code) {
-        case 1:
-          message = '位置情報の提供を許可してください。';
-          break;
-        case 2:
-          message = '位置情報の取得に失敗しました。';
-          break;
-      }
-      // Alert.set('warning', message);
-      this.redirectToDefaultLocation();
-    }
-
-    // デフォルトの位置情報にリダイレクト
-    static redirectToDefaultLocation() {
-      const defaultLocation = { latitude: 35.68978920591743, longitude: 139.70055989948156 }; // デフォルトの位置情報を設定
-      window.location.href = `/shops/map?latitude=${defaultLocation.latitude}&longitude=${defaultLocation.longitude}`;
-    }
-  }
-
-  // ページが読み込まれた後にイベントリスナーを追加
-  document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('search-nearby-shops').addEventListener('click', (event) => {
-      event.preventDefault();
-      CurrentLocations.getCurrentLocation();
-    });
-  });
-</script>

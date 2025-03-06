@@ -26,7 +26,6 @@ Rails.application.routes.draw do
     resources :posts, only: %i[new create show edit update destroy]
     collection do
       get 'map', to: 'shops#map', as: 'map'
-      get 'map.json', to: 'shops#map', defaults: { format: 'json' }
       get :auto_search
     end
     collection do
