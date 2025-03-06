@@ -15,10 +15,12 @@
     <%= display_meta_tags %>
   </head>
 
-  <body>
+<body class="flex flex-col min-h-screen">
     <%= render 'shared/header' %>
     <%= render 'shared/flash_message' %>
-    <%= yield %>
+    <div class="flex-grow">
+      <%= yield %>
+    </div>
     <%= render 'shared/footer' %>
   </body>
 </html>
