@@ -25,38 +25,29 @@
   let marker, markers = [];
   let shops = gon.shops;
 
-  window.addEventListener('DOMContentLoaded', function() {
+  // turbo:load を使いTurbo Driveのページ遷移でも動作するように設定
+  window.addEventListener("turbo:load", function() {
     if (!window.google || !window.google.maps) {
-      loadScript(); // スクリプトをロード
+      loadMapScript(); // スクリプトをロード
     } else if (typeof map === 'undefined') {
       // マップが初期化されていなければ初期化
       initMap();
     }
   });
 
-  // Maps JavaScript APIの読み込み
-  function loadScript() {
-
-    var existingScript = document.querySelector('script[src^="https://maps.googleapis.com/maps/api/js"]');
-    if (!existingScript) {
+  // Maps JavaScript APIを非同期で読み込む
+  function loadMapScript() {
       var script = document.createElement('script');
       script.src = `https://maps.googleapis.com/maps/api/js?key=${gon.google_maps_api_key}&callback=initMap`;
       script.async = true;
       script.defer = true;
       document.head.appendChild(script);
-    }
   }
 
-  // Mapの初期化
+  // GoogleMap初期化
   function initMap() {
     const geocoder = new google.maps.Geocoder();
-    const mapElement = document.getElementById('map');
-    if (!mapElement) {
-      console.error("Map element not found.");
-      return;
-    }
-
-    map = new google.maps.Map(mapElement, {
+    map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
       streetViewControl: false, // ストリートビューのボタン非表示
       mapTypeControl: false, // 地図、航空写真のボタン非表示
@@ -74,57 +65,57 @@
     updateSearch();
   }
 
-// 現在地を取得
-function showCurrentLocation(){
-  // 非同期処理のままだと、位置情報が取得される前に次の処理（現在地周辺のカフェの検索・取得）が実行されてしまうためPromiseを使って非同期処理の結果に応じて次の処理を実行するようにする
-  return new Promise((resolve, reject) => {
-    if (navigator.geolocation) {
-      // ブラウザが位置情報の取得をサポートしている場合
-      // 現在地を取得
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
+  // 現在地を取得
+  function showCurrentLocation(){
+    // 非同期処理のままだと、位置情報が取得される前に次の処理（現在地周辺のカフェの検索・取得）が実行されてしまうためPromiseを使って非同期処理の結果に応じて次の処理を実行するようにする
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        // ブラウザが位置情報の取得をサポートしている場合
+        // 現在地を取得
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
 
-          if (map) {
-            // マップの中心を設定
-            map.setCenter(pos);
-            currentLocationMarker.setPosition(pos);
-            resolve(pos);  // 成功時に位置を返す
-          } else {
-            console.error("map is not initialized.");
-            reject();
+            if (map) {
+              // マップの中心を設定
+              map.setCenter(pos);
+              currentLocationMarker.setPosition(pos);
+              resolve(pos);  // 成功時に位置を返す
+            } else {
+              console.error("map is not initialized.");
+              reject();
+            }
+          },
+          () => {
+            // 位置情報の取得に失敗した場合
+            alert('位置情報の取得に失敗しました。');
+            if (map) {
+              // マップの中心をデフォルト位置に設定
+              map.setCenter(defaultLocation);
+              currentLocationMarker.setPosition(defaultLocation);
+              resolve(defaultLocation);  // 失敗時はデフォルト位置を返す
+            } else {
+              console.error("map is not initialized.");
+              reject();
+            }
           }
-        },
-        () => {
-          // 位置情報の取得に失敗した場合
-          alert('位置情報の取得に失敗しました。');
-          if (map) {
-            // マップの中心をデフォルト位置に設定
-            map.setCenter(defaultLocation);
-            currentLocationMarker.setPosition(defaultLocation);
-            resolve(defaultLocation);  // 失敗時はデフォルト位置を返す
-          } else {
-            console.error("map is not initialized.");
-            reject();
-          }
-        }
-      );
-    } else {
-      alert('お使いのブラウザでは位置情報の取得がサポートされていません。');
-      if (map) {
-        // サポートされていない場合もデフォルト位置に設定
-        map.setCenter(defaultLocation);
-        resolve(defaultLocation);
+        );
       } else {
-        console.error("map is not initialized.");
-        reject();
+        alert('お使いのブラウザでは位置情報の取得がサポートされていません。');
+        if (map) {
+          // サポートされていない場合もデフォルト位置に設定
+          map.setCenter(defaultLocation);
+          resolve(defaultLocation);
+        } else {
+          console.error("map is not initialized.");
+          reject();
+        }
       }
-    }
-  });
-}
+    });
+  }
 
   // 現在地をマーカーで表示
   function addCurrentLocationMaker() {

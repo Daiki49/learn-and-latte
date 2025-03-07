@@ -71,6 +71,7 @@
             <% end %>
           </div>
 
+
           <!-- Tab 2 -->
           <input type="radio" id="tab4" name="my_tabs_2" role="tab" class="tab hidden peer" />
           <div role="tabpanel" class="tab-content rounded-b-lg p-6 shadow-xl border-b border-gray-300">
@@ -235,10 +236,6 @@
   </div>
 </div>
 
-
-
-
-
 <script>
   // タブのラベルをクリックしたときに強調表示
   document.getElementById('label-tab3').addEventListener('click', function() {
@@ -260,87 +257,33 @@
   });
 </script>
 
-
-
-
-
 <script>
-  var existingScript = document.querySelector('script[src^="https://maps.googleapis.com/maps/api/js"]');
-  if (!existingScript) {
-    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-      key: gon.google_maps_api_key,
-      v: "weekly",
-      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-      // Add other bootstrap parameters as needed, using camel case.
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', async function () {
-    await initMap();
-  });
-</script>
-
-<script>
-if (typeof map === 'undefined') {
-  var map;
+function loadMapScript() {
+  // Maps JavaScript APIを非同期で読み込む
+  var script = document.createElement('script');
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${gon.google_maps_api_key}&callback=initMap`;
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
 }
 
-async function initMap() {
-  // [START maps_add_map_instantiate_map]
-  // The location of Shinjuku Station
-  const position = { lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %>  };
-  // Request needed libraries.
-  //@ts-ignore
-  const { Map } = await google.maps.importLibrary("maps");
-  const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+loadMapScript();
 
-  // The map, centered at Shinjuku Station
-  map = new Map(document.getElementById("map"), {
+// GoogleMap初期化
+function initMap() {
+  const latLng = { lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %> };
+
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: latLng,
     zoom: 16,
-    center: position,
-    mapId: "DEMO_MAP_ID",
     streetViewControl: false, // ストリートビューのボタン非表示
     mapTypeControl: false, // 地図、航空写真のボタン非表示
     fullscreenControl: false, // フルスクリーンボタン非表示
   });
 
-  // [END maps_add_map_instantiate_map]
-
-  // [START maps_add_map_instantiate_marker]
-  // The marker, positioned at Shop Location
-  const marker = new google.maps.marker.AdvancedMarkerElement({
-    map: map,
-    position: position,
-    title: "shop location",
+  let marker = new google.maps.Marker({
+      position: {lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %>},
+      map: map
   });
-  // [END maps_add_map_instantiate_marker]
 }
-
-initMap();
-// [END maps_add_map]
 </script>
-
-<%# ログインすると使える機能案内ダイアログ %>
-<dialog id="login_modal" class="modal">
-    <div class="modal-box">
-        <h3 class="text-lg font-bold">
-            ログインして続ける
-        </h3>
-        <p class="py-4">
-            <ul>
-              <li>ログインすると使える機能</li>
-              <li>・レビュー投稿機能</li>
-              <li>・お店ブックマーク機能</li>
-              <li>・レビューいいね機能</li>
-            </ul>
-        </p>
-        <div class="modal-action">
-            <%# 戻るボタン %>
-            <%= form_with url: '#', method: :dialog do %>
-                <%= button_tag '✕', class: 'btn btn-sm btn-circle btn-ghost absolute right-2 top-2' %>
-            <% end %>
-            <%# ログインボタン %>
-            <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary hover:bg-custom-hover-brown text-white rounded-md" %>
-        </div>
-    </div>
-</dialog>
