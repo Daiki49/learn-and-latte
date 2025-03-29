@@ -10,8 +10,8 @@
                 現在地で検索
             </button>
           </div>
-          <div class="hidden md:block number-of-shops  md:order-1 order-2"></div> <!-- 件数を表示するための要素 -->
-          <div class="hidden md:block w-full h-full overflow-y-auto mt-3 h-[calc(100vh-300px)]">
+          <div class="hidden md:block number-of-shops"></div> <!-- 件数を表示するための要素 -->
+          <div class="hidden md:block w-full overflow-y-auto mt-3 h-[calc(100vh-300px)]">
               <ul class="shop-list"></ul> <!-- ショップリストを表示するための要素 -->
           </div>
         </div>
@@ -276,13 +276,13 @@
       // GoogleMapsAPIが複数回読み込まれることによるマップの不具合を回避するためTurboを無効化
       shopElement.innerHTML = `
           <div class="shop-item w-full h-full flex-none" data-shop-id="${shop.id}">
-            <div id="shop-id-${shop.id}" class="p-2 w-full snap-start snap-center"  data-shop-id="${shop.id}">
+            <div id="shop-id-${shop.id}" class="p-2 sm:w-full snap-start snap-center"  data-shop-id="${shop.id}">
               <div class="bg-white rounded shadow">
                 <ul class="w-full bg-white p-3 rounded-lg shadow-lg hover:bg-gray-50 text-sm md:text-lg">
                   <li class="flex items-center space-x-2 font-bold">
                     <a href="/shops/${shop.id}" data-turbo="false"  class="link link-primary">${shop.name}</a>
                   </li>
-                  <li class="mt-2 text-gray-500 text-sm">${shop.address}</li>
+                  <li class="hidden md:block mt-2 text-gray-500 text-sm">${shop.address}</li>
                 </ul>
               </div>
             </div>
