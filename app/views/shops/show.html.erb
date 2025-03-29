@@ -60,7 +60,7 @@
                   <p class="text-sm pb-4 pt-4 font-bold">住所</p>
                   <p><%= @shop.address %></p>
                 </div>
-                <div id="map" style="height: 400px; width: 100%;"></div>
+                <div id="shopMap" style="height: 400px; width: 100%;"></div>
               </div>
             <% end %>
             <% if @shop.opening_hours.present? %>
@@ -267,13 +267,23 @@ function loadMapScript() {
   document.head.appendChild(script);
 }
 
-loadMapScript();
+window.addEventListener("DOMContentLoaded", function() {
+  loadMapScript().then(() => {
+    if (!window.google || !window.google.maps) {
+      loadMapScript(); // スクリプトが読み込まれていない場合に再度読み込む
+    } else if (typeof shopMap === 'undefined') {
+      initMap();
+    }
+  }).catch((error) => {
+    console.error("Google Maps APIの読み込みに失敗しました:", error);
+  });
+});
 
 // GoogleMap初期化
 function initMap() {
   const latLng = { lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %> };
 
-  const map = new google.maps.Map(document.getElementById("map"), {
+  const shopMap = new google.maps.Map(document.getElementById("shopMap"), {
     center: latLng,
     zoom: 16,
     streetViewControl: false, // ストリートビューのボタン非表示
@@ -283,7 +293,7 @@ function initMap() {
 
   let marker = new google.maps.Marker({
       position: {lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %>},
-      map: map
+      map: shopMap
   });
 }
 </script>

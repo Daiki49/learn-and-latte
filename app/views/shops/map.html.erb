@@ -24,9 +24,9 @@
   let lng = defaultLocation.lng;
   let marker, markers = [];
   let shops = gon.shops;
+  let currentInfoWindow = null;
 
-  // turbo:load を使いTurbo Driveのページ遷移でも動作するように設定
-  window.addEventListener("turbo:load", function() {
+  window.addEventListener("DOMContentLoaded", function() {
     if (!window.google || !window.google.maps) {
       loadMapScript(); // スクリプトをロード
     } else if (typeof map === 'undefined') {
@@ -182,8 +182,9 @@
         }
       });
 
+      // GoogleMapsAPIが複数回読み込まれることによるマップの不具合を回避するためTurboを無効化
       const infoWindow = new google.maps.InfoWindow({
-        content: '<div class="hover:text-yellow-500"><a href="/shops/' + shop.id + '">' + shop.name + '</a></div>'
+        content: '<div class="hover:text-yellow-500"><a href="/shops/' + shop.id + '" data-turbo="false">' + shop.name + '</a></div>'
       });
 
       marker.addListener("click", () => {
@@ -219,13 +220,15 @@
     shopListElement.innerHTML = '';
     shops.forEach(shop => {
       const shopElement = document.createElement('div');
+
+      // GoogleMapsAPIが複数回読み込まれることによるマップの不具合を回避するためTurboを無効化
       shopElement.innerHTML = `
         <div class="sm:w-full lg:w-full">
           <div id="shop-id-${shop.id}" class="p-3">
             <div class="bg-white rounded shadow">
               <ul class="w-full bg-white p-6 rounded-lg shadow-lg">
                 <li class="flex items-center space-x-2 font-bold text-lg">
-                  <a href="/shops/${shop.id}" class="hover:text-yellow-500">${shop.name}</a>
+                  <a href="/shops/${shop.id}" data-turbo="false"  class="link link-primary">${shop.name}</a>
                 </li>
                 <li class="mt-2 text-sm text-gray-500">${shop.address}</li>
               </ul>
