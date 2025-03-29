@@ -1,15 +1,28 @@
 <div>
   <div class="container mx-auto">
     <div class="flex flex-wrap">
-      <div class="w-full lg:w-1/2 lg:mx-auto my-6">
-          <div id="map" style="height: 400px; width: 100%;"></div>
-          <div class="flex">
-            <button onclick="updateSearch()" class="btn btn-primary hover:bg-custom-hover-brown text-white mt-3 mb-3">
+      <!-- 大きい画面で横並びにするためにflex-rowを追加 -->
+      <div class="w-full lg:mx-auto lg:flex lg:flex-row max-w-screen-xl lg:my-6">
+        <!-- ショップリスト部分 -->
+        <div class="w-full lg:w-2/5 lg:ml-6 mr-3">
+          <div class="flex hidden md:block">
+            <button onclick="updateSearch()" class="btn btn-primary hover:bg-custom-hover-brown text-white mb-3">
                 現在地で検索
             </button>
           </div>
-        <div class="number-of-shops"></div> <!-- 件数を表示するための要素 -->
-        <div class="shop-list"></div> <!-- ショップリストを表示するための要素 -->
+          <div class="hidden md:block number-of-shops  md:order-1 order-2"></div> <!-- 件数を表示するための要素 -->
+          <div class="hidden md:block w-full h-full overflow-y-auto mt-3 h-[calc(100vh-300px)]">
+              <ul class="shop-list"></ul> <!-- ショップリストを表示するための要素 -->
+          </div>
+        </div>
+        <!-- マップ部分 -->
+        <div id="map" class="h-[calc(100vh-200px)] lg:w-3/5"></div>
+        <div class="md:hidden mx-auto flex justify-center my-2">
+          <!-- 現在地で検索ボタン -->
+          <button onclick="updateSearch()" class="btn btn-primary hover:bg-custom-hover-brown text-white p-2 text-sm">
+            現在地で検索
+          </button>
+        </div>
       </div>
     </div>
   </div>
