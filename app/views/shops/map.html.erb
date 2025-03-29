@@ -224,7 +224,7 @@
     });
   }
 
-  // リストの該当店舗をハイライト
+    // リストの該当店舗をハイライト
   function highlightShopInList(shopId) {
 
     const shopElements = document.querySelectorAll('.shop-item');
@@ -271,7 +271,7 @@
 
     shopListElement.innerHTML = '';
     shops.forEach(shop => {
-      const shopElement = document.createElement('div');
+      const shopElement = document.createElement('li');
 
       // GoogleMapsAPIが複数回読み込まれることによるマップの不具合を回避するためTurboを無効化
       shopElement.innerHTML = `
