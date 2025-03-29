@@ -182,20 +182,59 @@
         }
       });
 
+      // マーカーとリストのクリックイベントを紐づけられるようにマーカーにshop.idを付与
+      marker.shopId = shop.id;
+
       // GoogleMapsAPIが複数回読み込まれることによるマップの不具合を回避するためTurboを無効化
       const infoWindow = new google.maps.InfoWindow({
         content: '<div class="hover:text-yellow-500"><a href="/shops/' + shop.id + '" data-turbo="false">' + shop.name + '</a></div>'
       });
 
       marker.addListener("click", () => {
+
+        // 他のマーカーを選択するとInfoWindowが増えてしまうため閉じる処理を追加
+        if (currentInfoWindow) {
+          currentInfoWindow.close();
+        }
         infoWindow.open({
           anchor: marker,
           map,
         });
+        // 現在のInfoWindowを更新
+        currentInfoWindow = infoWindow;
+        // リストの該当店舗をハイライト
+        highlightShopInList(shop.id);
       });
 
       markers.push(marker);
 
+    });
+  }
+
+  // リストの該当店舗をハイライト
+  function highlightShopInList(shopId) {
+
+    const shopElements = document.querySelectorAll('.shop-item');
+
+    shopElements.forEach(el => {
+      el.classList.remove('bg-custom-light-gray'); // 既存のハイライト削除
+      if (el.dataset.shopId == shopId) {
+        el.classList.add('bg-custom-light-gray'); // 該当店舗にハイライト
+        el.scrollIntoView({ behavior: "smooth", block: "center" }); // スクロール
+      }
+    });
+  }
+
+  // リストのクリックイベントをセット
+  function setupShopListEvents() {
+    document.querySelectorAll('.shop-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const shopId = el.dataset.shopId;
+        const marker = markers.find(m => m.shopId == shopId);
+        if (marker) {
+          new google.maps.event.trigger(marker, "click"); // マーカーをクリックしたことにする
+        }
+      });
     });
   }
 
@@ -223,21 +262,23 @@
 
       // GoogleMapsAPIが複数回読み込まれることによるマップの不具合を回避するためTurboを無効化
       shopElement.innerHTML = `
-        <div class="sm:w-full lg:w-full">
-          <div id="shop-id-${shop.id}" class="p-3">
-            <div class="bg-white rounded shadow">
-              <ul class="w-full bg-white p-6 rounded-lg shadow-lg">
-                <li class="flex items-center space-x-2 font-bold text-lg">
-                  <a href="/shops/${shop.id}" data-turbo="false"  class="link link-primary">${shop.name}</a>
-                </li>
-                <li class="mt-2 text-sm text-gray-500">${shop.address}</li>
-              </ul>
+          <div class="shop-item w-full h-full flex-none" data-shop-id="${shop.id}">
+            <div id="shop-id-${shop.id}" class="p-2 w-full snap-start snap-center"  data-shop-id="${shop.id}">
+              <div class="bg-white rounded shadow">
+                <ul class="w-full bg-white p-3 rounded-lg shadow-lg hover:bg-gray-50 text-sm md:text-lg">
+                  <li class="flex items-center space-x-2 font-bold">
+                    <a href="/shops/${shop.id}" data-turbo="false"  class="link link-primary">${shop.name}</a>
+                  </li>
+                  <li class="mt-2 text-gray-500 text-sm">${shop.address}</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      `;
+        `;
       shopListElement.appendChild(shopElement);
     });
+    // リストのクリックイベントをセット
+    setupShopListEvents();
   }
 
   window.initMap = initMap;
