@@ -267,17 +267,7 @@ function loadMapScript() {
   document.head.appendChild(script);
 }
 
-window.addEventListener("DOMContentLoaded", function() {
-  loadMapScript().then(() => {
-    if (!window.google || !window.google.maps) {
-      loadMapScript(); // スクリプトが読み込まれていない場合に再度読み込む
-    } else if (typeof shopMap === 'undefined') {
-      initMap();
-    }
-  }).catch((error) => {
-    console.error("Google Maps APIの読み込みに失敗しました:", error);
-  });
-});
+loadMapScript();
 
 // GoogleMap初期化
 function initMap() {
