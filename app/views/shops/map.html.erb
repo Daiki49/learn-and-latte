@@ -16,7 +16,7 @@
           </div>
         </div>
         <!-- マップ部分 -->
-        <div id="map" class="h-[calc(100vh-200px)] lg:w-3/5"></div>
+        <div id="map" class="h-[calc(100vh-200px)] m-3 lg:w-3/5"></div>
         <div class="md:hidden mx-auto flex justify-center my-2">
           <!-- 現在地で検索ボタン -->
           <button onclick="updateSearch()" class="btn btn-primary hover:bg-custom-hover-brown text-white p-2 text-sm">
@@ -190,8 +190,8 @@
         map: map,
         title: shop.name,
         icon: {
-          url: "<%= asset_path('cafe_marker.png') %>", //カフェアイコン
-          scaledSize: new google.maps.Size(50, 50) //サイズ
+          url: "https://maps.google.com/mapfiles/ms/micons/orange-dot.png",
+          scaledSize: new google.maps.Size(30, 30) //サイズ
         }
       });
 
@@ -200,7 +200,15 @@
 
       // GoogleMapsAPIが複数回読み込まれることによるマップの不具合を回避するためTurboを無効化
       const infoWindow = new google.maps.InfoWindow({
-        content: '<div class="hover:text-yellow-500"><a href="/shops/' + shop.id + '" data-turbo="false">' + shop.name + '</a></div>'
+        content: `
+          <div class="m-2">
+            <a href="/shops/${shop.id}"
+              data-turbo="false"
+              class="link link-primary font-semibold outline-none focus:outline-none">
+              ${shop.name}
+            </a>
+          </div>
+        `
       });
 
       marker.addListener("click", () => {
