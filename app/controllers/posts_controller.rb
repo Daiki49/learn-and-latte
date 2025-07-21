@@ -10,8 +10,8 @@ class PostsController < ApplicationController
   end
 
   def new
-    # @post = Post.new
-    @post = Post.new(rating: 3, quietness_level: 3, seat_comfort_level: 3, wifi_comfort_level: 3)  # 初期値として3を設定
+    # 初期値として3を設定
+    @post = Post.new(rating: 3, quietness_level: 3, seat_comfort_level: 3, wifi_comfort_level: 3)
   end
 
   def create
@@ -31,8 +31,11 @@ class PostsController < ApplicationController
 
   def edit
     @post = current_user.posts.find(params[:id])
-    session[:previous_url] = request.referer  # 前ページセッションを保存
-    @post.post_images.each { |image| image.cache! } unless @post.post_images.blank? # 画像キャッシュ
+    # 前ページセッションを保存
+    session[:previous_url] = request.referer
+    # 画像キャッシュ
+    @post.post_images.each { |image| image.cache! } unless
+    @post.post_images.blank?
   end
 
   def update
@@ -49,7 +52,8 @@ class PostsController < ApplicationController
     if post_params[:post_images].present?
       @post.post_images += post_params[:post_images]
     else
-      @post.post_images = existing_images  # 画像が送信されていない場合は元の画像を保持
+      # 画像が送信されていない場合は元の画像を保持
+      @post.post_images = existing_images
     end
 
     # 画像削除処理
@@ -57,7 +61,6 @@ class PostsController < ApplicationController
       # 削除対象のインデックスをカンマ区切りで取得し、削除処理を行う
       params[:post][:remove_image_at].split(',').each do |index|
         index = index.to_i
-
         # インデックスが画像の数より小さい場合のみ削除処理を行う
         @post.remove_image_at_index(index) if index < @post.post_images.length
       end
